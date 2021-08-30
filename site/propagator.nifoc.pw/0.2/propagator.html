@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module propagator</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module propagator</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>This is the main module of the Propagator application: It provides the public API.
+<p>Copyright © 2014 Daniel Kempkens</p>
+
+<p><b>Version:</b> 0.2</p>
+<p><b>Authors:</b> Daniel Kempkens (<a href="mailto:daniel@kempkens.io"><tt>daniel@kempkens.io</tt></a>).</p>
+
+<h2><a name="description">Description</a></h2>This is the main module of the Propagator application: It provides the public API.
+<h2><a name="types">Data Types</a></h2>
+
+<h3 class="typedecl"><a name="type-group">group()</a></h3>
+<p><tt>group() = atom()</tt></p>
+
+
+<h3 class="typedecl"><a name="type-tag">tag()</a></h3>
+<p><tt>tag() = atom()</tt></p>
+
+
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#create-1">create/1</a></td><td>Creates a new group that processes can publish and/or subscribe to.</td></tr>
+<tr><td valign="top"><a href="#delete-1">delete/1</a></td><td>Removes an existing group.</td></tr>
+<tr><td valign="top"><a href="#groups-0">groups/0</a></td><td>Returns a list of all existing groups.</td></tr>
+<tr><td valign="top"><a href="#is_group-1">is_group/1</a></td><td>Checks wether or not a given group exists.</td></tr>
+<tr><td valign="top"><a href="#is_subscriber-2">is_subscriber/2</a></td><td>Checks wether or not <code>Pid</code> is subscribed to <code>Group</code>.</td></tr>
+<tr><td valign="top"><a href="#publish-3">publish/3</a></td><td>Publishes <code>Data</code> to <code>Group</code> and broadcasts it to all subscribers.</td></tr>
+<tr><td valign="top"><a href="#start-0">start/0</a></td><td>Starts the Propagator application and all of its dependencies.</td></tr>
+<tr><td valign="top"><a href="#statistics-1">statistics/1</a></td><td>Returns a property list with statistics about a given group.</td></tr>
+<tr><td valign="top"><a href="#stop-0">stop/0</a></td><td>Stops the Propagator application and all of its dependencies.</td></tr>
+<tr><td valign="top"><a href="#subscribe-1">subscribe/1</a></td><td>Subscribes the current processes (<code>self()</code>) to a group.</td></tr>
+<tr><td valign="top"><a href="#subscribe-2">subscribe/2</a></td><td>Subscribes any <code>Pid</code> to a given <code>Group</code>.</td></tr>
+<tr><td valign="top"><a href="#subscribers-1">subscribers/1</a></td><td>Returns a list of all processes that are subscribed to a <code>Group</code>.</td></tr>
+<tr><td valign="top"><a href="#unsubscribe-1">unsubscribe/1</a></td><td>Unsubscribes the current processes (<code>self()</code>) from a group.</td></tr>
+<tr><td valign="top"><a href="#unsubscribe-2">unsubscribe/2</a></td><td>Unsubscribes any <code>Pid</code> from a given <code>Group</code>.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="create-1">create/1</a></h3>
+<div class="spec">
+<p><tt>create(Group::<a href="#type-group">group()</a>) -&gt; ok</tt><br></p>
+</div><p>Creates a new group that processes can publish and/or subscribe to.</p>
+
+<h3 class="function"><a name="delete-1">delete/1</a></h3>
+<div class="spec">
+<p><tt>delete(Group::<a href="#type-group">group()</a>) -&gt; ok</tt><br></p>
+</div><p>Removes an existing group. If the group does not exist, nothing happens.</p>
+
+<h3 class="function"><a name="groups-0">groups/0</a></h3>
+<div class="spec">
+<p><tt>groups() -&gt; [<a href="#type-group">group()</a>]</tt><br></p>
+</div><p>Returns a list of all existing groups.</p>
+
+<h3 class="function"><a name="is_group-1">is_group/1</a></h3>
+<div class="spec">
+<p><tt>is_group(Group::<a href="#type-group">group()</a>) -&gt; boolean()</tt><br></p>
+</div><p>Checks wether or not a given group exists.</p>
+
+<h3 class="function"><a name="is_subscriber-2">is_subscriber/2</a></h3>
+<div class="spec">
+<p><tt>is_subscriber(Group::<a href="#type-group">group()</a>, Pid::pid()) -&gt; boolean()</tt><br></p>
+</div><p>Checks wether or not <code>Pid</code> is subscribed to <code>Group</code>.</p>
+
+<h3 class="function"><a name="publish-3">publish/3</a></h3>
+<div class="spec">
+<p><tt>publish(Group::<a href="#type-group">group()</a>, Tag::<a href="#type-tag">tag()</a>, Data::term()) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Publishes <code>Data</code> to <code>Group</code> and broadcasts it to all subscribers. All messages have to be tagged, allowing subscribers
+      to easily pattern-match on the messages they receive.</p>
+
+<h3 class="function"><a name="start-0">start/0</a></h3>
+<div class="spec">
+<p><tt>start() -&gt; ok</tt><br></p>
+</div><p>Starts the Propagator application and all of its dependencies. This is really only meant for usage inside the console.</p>
+
+<h3 class="function"><a name="statistics-1">statistics/1</a></h3>
+<div class="spec">
+<p><tt>statistics(Group::<a href="#type-group">group()</a>) -&gt; {ok, [{atom(), term()}]} | {error, term()}</tt><br></p>
+</div><p>Returns a property list with statistics about a given group.<br><br>
+      Currently the following keys are returned:<br>
+      <code>group</code>: The name of the group<br>
+      <code>subscriber_count</code>: Current number of subscribers<br>
+      <code>message_count</code>: Number of unique messages this process (group) sent<br>
+      <code>message_queue</code>: Number of messages that are currently queued up (actual Erlang message queue)</p>
+
+<h3 class="function"><a name="stop-0">stop/0</a></h3>
+<div class="spec">
+<p><tt>stop() -&gt; ok</tt><br></p>
+</div><p>Stops the Propagator application and all of its dependencies. This is really only meant for usage inside the console.</p>
+
+<h3 class="function"><a name="subscribe-1">subscribe/1</a></h3>
+<div class="spec">
+<p><tt>subscribe(Group::<a href="#type-group">group()</a>) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Subscribes the current processes (<code>self()</code>) to a group. Delegates to <a href="#subscribe-2"><code>subscribe/2</code></a>.</p>
+
+<h3 class="function"><a name="subscribe-2">subscribe/2</a></h3>
+<div class="spec">
+<p><tt>subscribe(Group::<a href="#type-group">group()</a>, Pid::pid()) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Subscribes any <code>Pid</code> to a given <code>Group</code>.</p>
+
+<h3 class="function"><a name="subscribers-1">subscribers/1</a></h3>
+<div class="spec">
+<p><tt>subscribers(Group::<a href="#type-group">group()</a>) -&gt; [pid()] | {error, term()}</tt><br></p>
+</div><p>Returns a list of all processes that are subscribed to a <code>Group</code>.</p>
+
+<h3 class="function"><a name="unsubscribe-1">unsubscribe/1</a></h3>
+<div class="spec">
+<p><tt>unsubscribe(Group::<a href="#type-group">group()</a>) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Unsubscribes the current processes (<code>self()</code>) from a group. Delegates to <a href="#unsubscribe-2"><code>unsubscribe/2</code></a>.</p>
+
+<h3 class="function"><a name="unsubscribe-2">unsubscribe/2</a></h3>
+<div class="spec">
+<p><tt>unsubscribe(Group::<a href="#type-group">group()</a>, Pid::pid()) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Unsubscribes any <code>Pid</code> from a given <code>Group</code>.</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, Oct 5 2014, 17:28:48.</i></p>
+</body>
+</html>

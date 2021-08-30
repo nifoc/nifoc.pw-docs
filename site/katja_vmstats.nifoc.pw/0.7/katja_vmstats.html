@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module katja_vmstats</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module katja_vmstats</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>This is the main module of the Katja VM Stats application: It provides the public API.
+<p>Copyright © 2014-2015 Daniel Kempkens</p>
+
+<p><b>Version:</b> 0.7</p>
+<p><b>Authors:</b> Daniel Kempkens (<a href="mailto:daniel@kempkens.io"><tt>daniel@kempkens.io</tt></a>).</p>
+
+<h2><a name="description">Description</a></h2>This is the main module of the Katja VM Stats application: It provides the public API.<br>
+      While it is possible to use <code>katja_vmstats_collector</code> directly, the recommended way is to use the functions defined
+      in this module instead.
+<h2><a name="types">Data Types</a></h2>
+
+<h3 class="typedecl"><a name="type-collection">collection()</a></h3>
+<p><tt>collection() = [<a href="#type-collection_attributes">collection_attributes()</a>]</tt></p>
+
+
+<h3 class="typedecl"><a name="type-collection_async_sample_rate">collection_async_sample_rate()</a></h3>
+<p><tt>collection_async_sample_rate() = {async_sample_rate, float()}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-collection_attributes">collection_attributes()</a></h3>
+<p><tt>collection_attributes() = <a href="#type-collection_name">collection_name()</a> | <a href="#type-collection_metrics">collection_metrics()</a> | <a href="#type-collection_interval">collection_interval()</a> | <a href="#type-collection_send_async">collection_send_async()</a> | <a href="#type-collection_async_sample_rate">collection_async_sample_rate()</a></tt></p>
+
+
+<h3 class="typedecl"><a name="type-collection_interval">collection_interval()</a></h3>
+<p><tt>collection_interval() = {interval, pos_integer()}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-collection_metrics">collection_metrics()</a></h3>
+<p><tt>collection_metrics() = {metrics, [<a href="#type-metric">metric()</a>]}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-collection_name">collection_name()</a></h3>
+<p><tt>collection_name() = {name, atom()}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-collection_send_async">collection_send_async()</a></h3>
+<p><tt>collection_send_async() = {send_async, boolean()}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-metric">metric()</a></h3>
+<p><tt>metric() = atom() | {iolist(), atom(), [any()]} | {iolist(), module(), atom(), [any()]}</tt></p>
+
+
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#collect-1">collect/1</a></td><td>Collects the specified metrics and sends them to Riemann.</td></tr>
+<tr><td valign="top"><a href="#get_collection-1">get_collection/1</a></td><td>Returns a list of all collections registered under the given <code>Name</code>.</td></tr>
+<tr><td valign="top"><a href="#start-0">start/0</a></td><td>Starts the Katja VM Stats application and all of its dependencies.</td></tr>
+<tr><td valign="top"><a href="#start_collection-2">start_collection/2</a></td><td>Registers a new collection under the given <code>Name</code>.</td></tr>
+<tr><td valign="top"><a href="#stop-0">stop/0</a></td><td>Stops the Katja VM Stats application and all of its dependencies.</td></tr>
+<tr><td valign="top"><a href="#stop_collection-1">stop_collection/1</a></td><td>Stops all collections registered under the given <code>Name</code>.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="collect-1">collect/1</a></h3>
+<div class="spec">
+<p><tt>collect(Metric::<a href="#type-metric">metric()</a> | [<a href="#type-metric">metric()</a>]) -&gt; ok</tt><br></p>
+</div><p>Collects the specified metrics and sends them to Riemann. Delegates to <a href="katja_vmstats_collector.html#collect-1"><code>katja_vmstats_collector:collect/1</code></a>.</p>
+
+<h3 class="function"><a name="get_collection-1">get_collection/1</a></h3>
+<div class="spec">
+<p><tt>get_collection(Name::atom()) -&gt; [<a href="katja_vmstats.html#type-collection">katja_vmstats:collection()</a>]</tt><br></p>
+</div><p>Returns a list of all collections registered under the given <code>Name</code>. Delegates to <a href="katja_vmstats_collector.html#get_collection-1"><code>katja_vmstats_collector:get_collection/1</code></a>.</p>
+
+<h3 class="function"><a name="start-0">start/0</a></h3>
+<div class="spec">
+<p><tt>start() -&gt; ok</tt><br></p>
+</div><p>Starts the Katja VM Stats application and all of its dependencies. This is really only meant for usage inside the console.</p>
+
+<h3 class="function"><a name="start_collection-2">start_collection/2</a></h3>
+<div class="spec">
+<p><tt>start_collection(Name::atom(), MetricsIntervals::<a href="katja_vmstats.html#type-collection">katja_vmstats:collection()</a> | [<a href="katja_vmstats.html#type-collection">katja_vmstats:collection()</a>]) -&gt; ok</tt><br></p>
+</div><p>Registers a new collection under the given <code>Name</code>. Delegates to <a href="katja_vmstats_collector.html#start_collection-2"><code>katja_vmstats_collector:start_collection/2</code></a>.</p>
+
+<h3 class="function"><a name="stop-0">stop/0</a></h3>
+<div class="spec">
+<p><tt>stop() -&gt; ok</tt><br></p>
+</div><p>Stops the Katja VM Stats application and all of its dependencies. This is really only meant for usage inside the console.</p>
+
+<h3 class="function"><a name="stop_collection-1">stop_collection/1</a></h3>
+<div class="spec">
+<p><tt>stop_collection(Name::atom()) -&gt; ok</tt><br></p>
+</div><p>Stops all collections registered under the given <code>Name</code>. Delegates to <a href="katja_vmstats_collector.html#stop_collection-1"><code>katja_vmstats_collector:stop_collection/1</code></a>.</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, Feb 27 2015, 18:57:35.</i></p>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module noesis_lists</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module noesis_lists</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>The <code>noesis_lists</code> module provides functions for working with lists.
+<p>Copyright © 2014-2015 Daniel Kempkens</p>
+
+<p><b>Version:</b> 0.3.1</p>
+<p><b>Authors:</b> Daniel Kempkens (<a href="mailto:daniel@kempkens.io"><tt>daniel@kempkens.io</tt></a>).</p>
+
+<h2><a name="description">Description</a></h2>The <code>noesis_lists</code> module provides functions for working with lists.
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#group_by-2">group_by/2</a></td><td>Groups a list using a user-supplied function.</td></tr>
+<tr><td valign="top"><a href="#pfilter-2">pfilter/2</a></td><td>Delegates to <a href="#pfilter-3"><code>pfilter/3</code></a> and uses default options.</td></tr>
+<tr><td valign="top"><a href="#pfilter-3">pfilter/3</a></td><td>Returns a list of all elements in <code>List</code> for which <code>Fun</code> returns <code>true</code>.</td></tr>
+<tr><td valign="top"><a href="#pmap-2">pmap/2</a></td><td>Delegates to <a href="#pmap-3"><code>pmap/3</code></a> and uses default options.</td></tr>
+<tr><td valign="top"><a href="#pmap-3">pmap/3</a></td><td>Takes a function from <code>A</code>s to <code>B</code>s and a list of <code>A</code>s and produces a list of <code>B</code>s by applying the function
+      to every element in the list in parallel.</td></tr>
+<tr><td valign="top"><a href="#split-2">split/2</a></td><td>Splits <code>List</code> into <code>ListA</code> and <code>ListB</code>.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="group_by-2">group_by/2</a></h3>
+<div class="spec">
+<p><tt>group_by(Fun::fun((A) -&gt; B), A::[A]) -&gt; <a href="noesis_proplists.html#type-proplist">noesis_proplists:proplist</a>(B, [A])</tt><br></p>
+</div><p>Groups a list using a user-supplied function.</p>
+
+<h3 class="function"><a name="pfilter-2">pfilter/2</a></h3>
+<div class="spec">
+<p><tt>pfilter(Fun::fun((T) -&gt; boolean()), T::[T]) -&gt; [T]</tt><br></p>
+</div><p>Delegates to <a href="#pfilter-3"><code>pfilter/3</code></a> and uses default options.<br><br>
+      <strong>Default Options</strong><br>
+      <pre><code>[{retain_order, true}, {parallelism, default_parallelism()}]</code></pre></p>
+
+<h3 class="function"><a name="pfilter-3">pfilter/3</a></h3>
+<div class="spec">
+<p><tt>pfilter(Fun::fun((T) -&gt; boolean()), T::[T], Options::<a href="noesis_proplists.html#type-proplist">noesis_proplists:proplist</a>(atom(), term())) -&gt; [T]</tt><br></p>
+</div><p>Returns a list of all elements in <code>List</code> for which <code>Fun</code> returns <code>true</code>. Applying <code>Fun</code> to every element in the list
+      happens in parallel.</p>
+
+<h3 class="function"><a name="pmap-2">pmap/2</a></h3>
+<div class="spec">
+<p><tt>pmap(Fun::fun((A) -&gt; B), A::[A]) -&gt; [B]</tt><br></p>
+</div><p>Delegates to <a href="#pmap-3"><code>pmap/3</code></a> and uses default options.<br><br>
+      <strong>Default Options</strong><br>
+      <pre><code>[{retain_order, true}, {parallelism, default_parallelism()}]</code></pre></p>
+
+<h3 class="function"><a name="pmap-3">pmap/3</a></h3>
+<div class="spec">
+<p><tt>pmap(Fun::fun((A) -&gt; B), A::[A], Options::<a href="noesis_proplists.html#type-proplist">noesis_proplists:proplist</a>(atom(), term())) -&gt; [B]</tt><br></p>
+</div><p>Takes a function from <code>A</code>s to <code>B</code>s and a list of <code>A</code>s and produces a list of <code>B</code>s by applying the function
+      to every element in the list in parallel. The function is used to obtain the return values.<br><br>
+      Partially based on <a href="http://erlang.org/pipermail/erlang-questions/2006-June/020834.html" target="_blank">Erlang on the Niagara</a>
+      by Joe Armstrong.</p>
+
+<h3 class="function"><a name="split-2">split/2</a></h3>
+<div class="spec">
+<p><tt>split(N::non_neg_integer(), List::list()) -&gt; {ListA::list(), ListB::list()}</tt><br></p>
+</div><p>Splits <code>List</code> into <code>ListA</code> and <code>ListB</code>. <code>ListA</code> contains the first <code>N</code> elements and <code>ListB</code> the rest of the elements (the <code>N</code>th tail).
+      If <code>N &gt;= length(List)</code> this function will not throw an error (as opposed to <code>lists:split/2</code>).<br><br>
+      <strong>Examples</strong><br>
+      <code>split(2, [])</code> =&gt; <code>{[], []}</code><br>
+      <code>split(2, [demo])</code> =&gt; <code>{[demo], []}</code><br>
+      <code>split(2, [a, b, c, d, e])</code> =&gt; <code>{[a, b], [c, d, e]}</code></p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, Apr 6 2015, 23:36:30.</i></p>
+</body>
+</html>

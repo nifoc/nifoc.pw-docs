@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module noesis_proplists</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module noesis_proplists</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>The <code>noesis_proplists</code> module includes functions that work on property lists.
+<p>Copyright © 2014-2015 Daniel Kempkens</p>
+
+<p><b>Version:</b> 0.3.1</p>
+<p><b>Authors:</b> Daniel Kempkens (<a href="mailto:daniel@kempkens.io"><tt>daniel@kempkens.io</tt></a>).</p>
+
+<h2><a name="description">Description</a></h2>The <code>noesis_proplists</code> module includes functions that work on property lists.
+<h2><a name="types">Data Types</a></h2>
+
+<h3 class="typedecl"><a name="type-proplist">proplist()</a></h3>
+<p><tt>proplist(Key, Value) = [{Key, Value}]</tt></p>
+
+
+<h3 class="typedecl"><a name="type-proplist">proplist()</a></h3>
+<p><tt>proplist(Key) = [{Key, term()}]</tt></p>
+
+
+<h3 class="typedecl"><a name="type-proplist">proplist()</a></h3>
+<p><tt>proplist() = [{term(), term()}]</tt></p>
+
+
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#delete_keys-2">delete_keys/2</a></td><td>Removes multiple keys from a property list and returns a new one.</td></tr>
+<tr><td valign="top"><a href="#extract-2">extract/2</a></td><td>Delegates to <a href="#extract-4"><code>extract/4</code></a>.</td></tr>
+<tr><td valign="top"><a href="#extract-3">extract/3</a></td><td>Delegates to <a href="#extract-4"><code>extract/4</code></a>.</td></tr>
+<tr><td valign="top"><a href="#extract-4">extract/4</a></td><td>Extracts key/value pairs from a property list and returns a new property list containing only extracted pairs.</td></tr>
+<tr><td valign="top"><a href="#get_keys-1">get_keys/1</a></td><td>Returns a list of all keys in the property list, not including duplicates.</td></tr>
+<tr><td valign="top"><a href="#get_value-2">get_value/2</a></td><td>Delegates to <a href="#get_value-3"><code>get_value/3</code></a> and sets the default return value to <code>undefined</code>.</td></tr>
+<tr><td valign="top"><a href="#get_value-3">get_value/3</a></td><td>Returns the value of a key/value property in <code>List</code>.</td></tr>
+<tr><td valign="top"><a href="#keypos-2">keypos/2</a></td><td>Returns the position of a key in a property list.</td></tr>
+<tr><td valign="top"><a href="#merge-2">merge/2</a></td><td>Delegates to <a href="#merge-3"><code>merge/3</code></a>.</td></tr>
+<tr><td valign="top"><a href="#merge-3">merge/3</a></td><td>Merges two property lists, <code>ListA</code> and <code>ListB</code>, to create a new list.</td></tr>
+<tr><td valign="top"><a href="#partial_extract-2">partial_extract/2</a></td><td>Delegates to <a href="#partial_extract-3"><code>partial_extract/3</code></a>.</td></tr>
+<tr><td valign="top"><a href="#partial_extract-3">partial_extract/3</a></td><td>Extracts key/value pairs from a property list and returns a new property list containing only extracted pairs.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="delete_keys-2">delete_keys/2</a></h3>
+<div class="spec">
+<p><tt>delete_keys(Keys::[term()], List::<a href="#type-proplist">proplist()</a>) -&gt; <a href="#type-proplist">proplist()</a></tt><br></p>
+</div><p>Removes multiple keys from a property list and returns a new one. Duplicate keys are also removed.</p>
+
+<h3 class="function"><a name="extract-2">extract/2</a></h3>
+<div class="spec">
+<p><tt>extract(Keys::[term()], List::<a href="#type-proplist">proplist()</a>) -&gt; <a href="#type-proplist">proplist()</a></tt><br></p>
+</div><p>Delegates to <a href="#extract-4"><code>extract/4</code></a>. <code>NullValue</code> is set to <code>undefined</code> and <code>Defaults</code> is set to an empty list.</p>
+
+<h3 class="function"><a name="extract-3">extract/3</a></h3>
+<div class="spec">
+<p><tt>extract(Keys::[term()], List::<a href="#type-proplist">proplist()</a>, NullValue::term()) -&gt; <a href="#type-proplist">proplist()</a></tt><br></p>
+</div><p>Delegates to <a href="#extract-4"><code>extract/4</code></a>. Allows you to set <code>NullValue</code> and sets <code>Defaults</code> to an empty list.</p>
+
+<h3 class="function"><a name="extract-4">extract/4</a></h3>
+<div class="spec">
+<p><tt>extract(Keys::[term()], List::<a href="#type-proplist">proplist()</a>, NullValue::term(), Defaults::<a href="#type-proplist">proplist()</a>) -&gt; <a href="#type-proplist">proplist()</a></tt><br></p>
+</div><p>Extracts key/value pairs from a property list and returns a new property list containing only extracted pairs.<br>
+      You can provide a set of default values that will be used as fallback if the key is not found in <code>List</code>. If the key is not
+      found in <code>Defaults</code> either, the <code>NullValue</code> will be used for the value part.<br>
+      Duplicate entries in <code>Keys</code> will be ignored.</p>
+
+<h3 class="function"><a name="get_keys-1">get_keys/1</a></h3>
+<div class="spec">
+<p><tt>get_keys(List::<a href="#type-proplist">proplist()</a>) -&gt; [term()]</tt><br></p>
+</div><p>Returns a list of all keys in the property list, not including duplicates.</p>
+
+<h3 class="function"><a name="get_value-2">get_value/2</a></h3>
+<div class="spec">
+<p><tt>get_value(Key::term(), List::<a href="#type-proplist">proplist()</a>) -&gt; term()</tt><br></p>
+</div><p>Delegates to <a href="#get_value-3"><code>get_value/3</code></a> and sets the default return value to <code>undefined</code>.</p>
+
+<h3 class="function"><a name="get_value-3">get_value/3</a></h3>
+<div class="spec">
+<p><tt>get_value(Key::term(), List::<a href="#type-proplist">proplist()</a>, Default::term()) -&gt; term()</tt><br></p>
+</div><p>Returns the value of a key/value property in <code>List</code>. Returns the default value if <code>Key</code> is not found.</p>
+
+<h3 class="function"><a name="keypos-2">keypos/2</a></h3>
+<div class="spec">
+<p><tt>keypos(Key::term(), List::<a href="#type-proplist">proplist()</a>) -&gt; pos_integer() | undefined</tt><br></p>
+</div><p>Returns the position of a key in a property list. If <code>Key</code> does not exist <code>undefined</code> will be returned.</p>
+
+<h3 class="function"><a name="merge-2">merge/2</a></h3>
+<div class="spec">
+<p><tt>merge(ListA::<a href="#type-proplist">proplist()</a>, ListB::<a href="#type-proplist">proplist()</a>) -&gt; <a href="#type-proplist">proplist()</a></tt><br></p>
+</div><p>Delegates to <a href="#merge-3"><code>merge/3</code></a>. <code>Fun</code> is set to function that always uses the value from <code>ListB</code>.</p>
+
+<h3 class="function"><a name="merge-3">merge/3</a></h3>
+<div class="spec">
+<p><tt>merge(Fun::fun((Key, ValueA, ValueB) -&gt; Value), ListA::<a href="#type-proplist">proplist</a>(Key, ValueA), ListB::<a href="#type-proplist">proplist</a>(Key, ValueB)) -&gt; <a href="#type-proplist">proplist</a>(Key, Value)</tt><br></p>
+</div><p>Merges two property lists, <code>ListA</code> and <code>ListB</code>, to create a new list. All the Key/Value pairs from both lists are
+      included in the new property list. If a key occurs in both lists then <code>Fun</code> is called with the key and both values
+      to return a new value.</p>
+
+<h3 class="function"><a name="partial_extract-2">partial_extract/2</a></h3>
+<div class="spec">
+<p><tt>partial_extract(Keys::[term()], List::<a href="#type-proplist">proplist()</a>) -&gt; <a href="#type-proplist">proplist()</a></tt><br></p>
+</div><p>Delegates to <a href="#partial_extract-3"><code>partial_extract/3</code></a>. <code>NullValue</code> is set to <code>undefined</code>.</p>
+
+<h3 class="function"><a name="partial_extract-3">partial_extract/3</a></h3>
+<div class="spec">
+<p><tt>partial_extract(Keys::[term()], List::<a href="#type-proplist">proplist()</a>, NullValue::term()) -&gt; <a href="#type-proplist">proplist()</a></tt><br></p>
+</div><p>Extracts key/value pairs from a property list and returns a new property list containing only extracted pairs.<br>
+      Pairs not found in <code>List</code> (and all those matching <code>NullValue</code>) will not be included in the property list that is returned.</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, Apr 6 2015, 23:36:30.</i></p>
+</body>
+</html>

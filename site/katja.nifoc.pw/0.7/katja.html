@@ -1,0 +1,371 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module katja</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module katja</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>This is the main module of the Katja application: It provides the public API.
+<p>Copyright © 2014 Daniel Kempkens</p>
+
+<p><b>Version:</b> 0.7</p>
+<p><b>Authors:</b> Daniel Kempkens (<a href="mailto:daniel@kempkens.io"><tt>daniel@kempkens.io</tt></a>).</p>
+
+<h2><a name="description">Description</a></h2>This is the main module of the Katja application: It provides the public API.<br>
+      While it is possible to use <code>katja_writer</code> and <code>katja_reader</code> directly, the recommended way is to use the functions defined
+      in this module instead.
+<h2><a name="types">Data Types</a></h2>
+
+<h3 class="typedecl"><a name="type-entities">entities()</a></h3>
+<p><tt>entities() = [{events, [<a href="#type-event">event()</a>]} | {states, [<a href="#type-state">state()</a>]}]</tt></p>
+
+
+<h3 class="typedecl"><a name="type-event">event()</a></h3>
+<p><tt>event() = [<a href="#type-riemann_event_opts">riemann_event_opts()</a>]</tt></p>
+
+
+<h3 class="typedecl"><a name="type-process">process()</a></h3>
+<p><tt>process() = pid() | katja_writer | katja_reader</tt></p>
+
+
+<h3 class="typedecl"><a name="type-riemann_attributes">riemann_attributes()</a></h3>
+<p><tt>riemann_attributes() = {attributes, [{iolist(), iolist()}]}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-riemann_description">riemann_description()</a></h3>
+<p><tt>riemann_description() = {description, iolist()}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-riemann_event_opts">riemann_event_opts()</a></h3>
+<p><tt>riemann_event_opts() = <a href="#type-riemann_time">riemann_time()</a> | <a href="#type-riemann_state">riemann_state()</a> | <a href="#type-riemann_service">riemann_service()</a> | <a href="#type-riemann_host">riemann_host()</a> | <a href="#type-riemann_description">riemann_description()</a> | <a href="#type-riemann_tags">riemann_tags()</a> | <a href="#type-riemann_ttl">riemann_ttl()</a> | <a href="#type-riemann_attributes">riemann_attributes()</a> | <a href="#type-riemann_metric">riemann_metric()</a></tt></p>
+
+
+<h3 class="typedecl"><a name="type-riemann_host">riemann_host()</a></h3>
+<p><tt>riemann_host() = {host, iolist()}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-riemann_metric">riemann_metric()</a></h3>
+<p><tt>riemann_metric() = {metric, number()}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-riemann_once">riemann_once()</a></h3>
+<p><tt>riemann_once() = {once, boolean()}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-riemann_service">riemann_service()</a></h3>
+<p><tt>riemann_service() = {service, iolist()}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-riemann_state">riemann_state()</a></h3>
+<p><tt>riemann_state() = {state, iolist()}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-riemann_state_opts">riemann_state_opts()</a></h3>
+<p><tt>riemann_state_opts() = <a href="#type-riemann_time">riemann_time()</a> | <a href="#type-riemann_state">riemann_state()</a> | <a href="#type-riemann_service">riemann_service()</a> | <a href="#type-riemann_host">riemann_host()</a> | <a href="#type-riemann_description">riemann_description()</a> | <a href="#type-riemann_tags">riemann_tags()</a> | <a href="#type-riemann_ttl">riemann_ttl()</a> | <a href="#type-riemann_once">riemann_once()</a></tt></p>
+
+
+<h3 class="typedecl"><a name="type-riemann_tags">riemann_tags()</a></h3>
+<p><tt>riemann_tags() = {tags, [iolist()]}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-riemann_time">riemann_time()</a></h3>
+<p><tt>riemann_time() = {time, non_neg_integer() | riemann}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-riemann_ttl">riemann_ttl()</a></h3>
+<p><tt>riemann_ttl() = {ttl, float()}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-sample_rate">sample_rate()</a></h3>
+<p><tt>sample_rate() = float()</tt></p>
+
+
+<h3 class="typedecl"><a name="type-state">state()</a></h3>
+<p><tt>state() = [<a href="#type-riemann_state_opts">riemann_state_opts()</a>]</tt></p>
+
+
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#query-1">query/1</a></td><td>Delegates to <a href="#query-2"><code>query/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#query-2">query/2</a></td><td>Delegates to <a href="katja_reader.html#query-2"><code>katja_reader:query/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#query_async-1">query_async/1</a></td><td>Delegates to <a href="#query_async-2"><code>query_async/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#query_async-2">query_async/2</a></td><td>Delegates to <a href="katja_reader.html#query_async-2"><code>katja_reader:query_async/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#query_event-1">query_event/1</a></td><td>Delegates to <a href="#query_event-2"><code>query_event/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#query_event-2">query_event/2</a></td><td>Delegates to <a href="katja_reader.html#query_event-2"><code>katja_reader:query_event/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#query_event_async-1">query_event_async/1</a></td><td>Delegates to <a href="#query_event_async-2"><code>query_event_async/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#query_event_async-2">query_event_async/2</a></td><td>Delegates to <a href="katja_reader.html#query_event_async-2"><code>katja_reader:query_event_async/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_entities-1">send_entities/1</a></td><td>Delegates to <a href="#send_entities-2"><code>send_entities/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_entities-2">send_entities/2</a></td><td>Delegates to <a href="#send_entities-3"><code>send_entities/3</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_entities-3">send_entities/3</a></td><td>Sends multiple entities (events and/or states) to Riemann.</td></tr>
+<tr><td valign="top"><a href="#send_entities_async-1">send_entities_async/1</a></td><td>Delegates to <a href="#send_entities_async-2"><code>send_entities_async/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_entities_async-2">send_entities_async/2</a></td><td>Delegates to <a href="#send_entities_async-3"><code>send_entities_async/3</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_entities_async-3">send_entities_async/3</a></td><td>Delegates to <a href="#send_entities_async-4"><code>send_entities_async/4</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_entities_async-4">send_entities_async/4</a></td><td>Sends multiple entities (events and/or states) to Riemann asynchronously.</td></tr>
+<tr><td valign="top"><a href="#send_event-1">send_event/1</a></td><td>Delegates to <a href="#send_event-2"><code>send_event/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_event-2">send_event/2</a></td><td>Delegates to <a href="#send_event-3"><code>send_event/3</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_event-3">send_event/3</a></td><td>Sends a single event to Riemann.</td></tr>
+<tr><td valign="top"><a href="#send_event_async-1">send_event_async/1</a></td><td>Delegates to <a href="#send_event_async-2"><code>send_event_async/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_event_async-2">send_event_async/2</a></td><td>Delegates to <a href="#send_event_async-3"><code>send_event_async/3</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_event_async-3">send_event_async/3</a></td><td>Delegates to <a href="#send_event_async-4"><code>send_event_async/4</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_event_async-4">send_event_async/4</a></td><td>Sends a single event to Riemann asynchronously.</td></tr>
+<tr><td valign="top"><a href="#send_events-1">send_events/1</a></td><td>Delegates to <a href="#send_events-2"><code>send_events/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_events-2">send_events/2</a></td><td>Delegates to <a href="#send_events-3"><code>send_events/3</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_events-3">send_events/3</a></td><td>Sends multiple events to Riemann.</td></tr>
+<tr><td valign="top"><a href="#send_events_async-1">send_events_async/1</a></td><td>Delegates to <a href="#send_events_async-2"><code>send_events_async/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_events_async-2">send_events_async/2</a></td><td>Delegates to <a href="#send_events_async-3"><code>send_events_async/3</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_events_async-3">send_events_async/3</a></td><td>Delegates to <a href="#send_events_async-4"><code>send_events_async/4</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_events_async-4">send_events_async/4</a></td><td>Sends multiple events to Riemann asynchronously.</td></tr>
+<tr><td valign="top"><a href="#send_state-1">send_state/1</a></td><td>Delegates to <a href="#send_state-2"><code>send_state/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_state-2">send_state/2</a></td><td>Delegates to <a href="#send_state-3"><code>send_state/3</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_state-3">send_state/3</a></td><td>Sends a single state to Riemann.</td></tr>
+<tr><td valign="top"><a href="#send_state_async-1">send_state_async/1</a></td><td>Delegates to <a href="#send_state_async-2"><code>send_state_async/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_state_async-2">send_state_async/2</a></td><td>Delegates to <a href="#send_state_async-3"><code>send_state_async/3</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_state_async-3">send_state_async/3</a></td><td>Delegates to <a href="#send_state_async-4"><code>send_state_async/4</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_state_async-4">send_state_async/4</a></td><td>Sends a single state to Riemann asynchronously.</td></tr>
+<tr><td valign="top"><a href="#send_states-1">send_states/1</a></td><td>Delegates to <a href="#send_states-2"><code>send_states/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_states-2">send_states/2</a></td><td>Delegates to <a href="#send_states-3"><code>send_states/3</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_states-3">send_states/3</a></td><td>Sends multiple states to Riemann.</td></tr>
+<tr><td valign="top"><a href="#send_states_async-1">send_states_async/1</a></td><td>Delegates to <a href="#send_states_async-2"><code>send_states_async/2</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_states_async-2">send_states_async/2</a></td><td>Delegates to <a href="#send_states_async-3"><code>send_states_async/3</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_states_async-3">send_states_async/3</a></td><td>Delegates to <a href="#send_states_async-4"><code>send_states_async/4</code></a>.</td></tr>
+<tr><td valign="top"><a href="#send_states_async-4">send_states_async/4</a></td><td>Sends multiple states to Riemann asynchronously.</td></tr>
+<tr><td valign="top"><a href="#start-0">start/0</a></td><td>Starts the Katja application and all of its dependencies.</td></tr>
+<tr><td valign="top"><a href="#stop-0">stop/0</a></td><td>Stops the Katja application and all of its dependencies.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="query-1">query/1</a></h3>
+<div class="spec">
+<p><tt>query(Query::string()) -&gt; {ok, [<a href="#type-event">event()</a>]} | {error, term()}</tt><br></p>
+</div><p>Delegates to <a href="#query-2"><code>query/2</code></a>. <code>Pid</code> is set to <code>katja_reader</code>.</p>
+
+<h3 class="function"><a name="query-2">query/2</a></h3>
+<div class="spec">
+<p><tt>query(Pid::<a href="#type-process">process()</a>, Query::string()) -&gt; {ok, [<a href="#type-event">event()</a>]} | {error, term()}</tt><br></p>
+</div><p>Delegates to <a href="katja_reader.html#query-2"><code>katja_reader:query/2</code></a>.</p>
+
+<h3 class="function"><a name="query_async-1">query_async/1</a></h3>
+<div class="spec">
+<p><tt>query_async(Query::string()) -&gt; reference()</tt><br></p>
+</div><p>Delegates to <a href="#query_async-2"><code>query_async/2</code></a>. <code>Pid</code> is set to <code>katja_reader</code>.</p>
+
+<h3 class="function"><a name="query_async-2">query_async/2</a></h3>
+<div class="spec">
+<p><tt>query_async(Pid::<a href="#type-process">process()</a>, Query::string()) -&gt; reference()</tt><br></p>
+</div><p>Delegates to <a href="katja_reader.html#query_async-2"><code>katja_reader:query_async/2</code></a>.</p>
+
+<h3 class="function"><a name="query_event-1">query_event/1</a></h3>
+<div class="spec">
+<p><tt>query_event(Event::<a href="#type-event">event()</a>) -&gt; {ok, [<a href="#type-event">event()</a>]} | {error, term()}</tt><br></p>
+</div><p>Delegates to <a href="#query_event-2"><code>query_event/2</code></a>. <code>Pid</code> is set to <code>katja_reader</code>.</p>
+
+<h3 class="function"><a name="query_event-2">query_event/2</a></h3>
+<div class="spec">
+<p><tt>query_event(Pid::<a href="#type-process">process()</a>, Event::<a href="#type-event">event()</a>) -&gt; {ok, [<a href="#type-event">event()</a>]} | {error, term()}</tt><br></p>
+</div><p>Delegates to <a href="katja_reader.html#query_event-2"><code>katja_reader:query_event/2</code></a>.</p>
+
+<h3 class="function"><a name="query_event_async-1">query_event_async/1</a></h3>
+<div class="spec">
+<p><tt>query_event_async(Event::<a href="#type-event">event()</a>) -&gt; reference()</tt><br></p>
+</div><p>Delegates to <a href="#query_event_async-2"><code>query_event_async/2</code></a>. <code>Pid</code> is set to <code>katja_reader</code>.</p>
+
+<h3 class="function"><a name="query_event_async-2">query_event_async/2</a></h3>
+<div class="spec">
+<p><tt>query_event_async(Pid::<a href="#type-process">process()</a>, Event::<a href="#type-event">event()</a>) -&gt; reference()</tt><br></p>
+</div><p>Delegates to <a href="katja_reader.html#query_event_async-2"><code>katja_reader:query_event_async/2</code></a>.</p>
+
+<h3 class="function"><a name="send_entities-1">send_entities/1</a></h3>
+<div class="spec">
+<p><tt>send_entities(Data::<a href="#type-entities">entities()</a>) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Delegates to <a href="#send_entities-2"><code>send_entities/2</code></a>. <code>Pid</code> is set to <code>katja_writer</code>.</p>
+
+<h3 class="function"><a name="send_entities-2">send_entities/2</a></h3>
+<div class="spec">
+<p><tt>send_entities(Pid::<a href="#type-process">process()</a>, Data::<a href="#type-entities">entities()</a>) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Delegates to <a href="#send_entities-3"><code>send_entities/3</code></a>. <code>Transport</code> is set to <code>config</code>.</p>
+
+<h3 class="function"><a name="send_entities-3">send_entities/3</a></h3>
+<div class="spec">
+<p><tt>send_entities(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::<a href="#type-entities">entities()</a>) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Sends multiple entities (events and/or states) to Riemann. Delegates to <a href="katja_writer.html#send_entities-3"><code>katja_writer:send_entities/3</code></a>.</p>
+
+<h3 class="function"><a name="send_entities_async-1">send_entities_async/1</a></h3>
+<div class="spec">
+<p><tt>send_entities_async(Data::<a href="#type-entities">entities()</a>) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_entities_async-2"><code>send_entities_async/2</code></a>. <code>Pid</code> is set to <code>katja_writer</code>.</p>
+
+<h3 class="function"><a name="send_entities_async-2">send_entities_async/2</a></h3>
+<div class="spec">
+<p><tt>send_entities_async(Pid::<a href="#type-process">process()</a>, Data::<a href="#type-entities">entities()</a>) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_entities_async-3"><code>send_entities_async/3</code></a>. <code>Transport</code> is set to <code>config</code>.</p>
+
+<h3 class="function"><a name="send_entities_async-3">send_entities_async/3</a></h3>
+<div class="spec">
+<p><tt>send_entities_async(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::<a href="#type-entities">entities()</a>) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_entities_async-4"><code>send_entities_async/4</code></a>. <code>SampleRate</code> is set to <code>1.0</code>.</p>
+
+<h3 class="function"><a name="send_entities_async-4">send_entities_async/4</a></h3>
+<div class="spec">
+<p><tt>send_entities_async(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::<a href="#type-entities">entities()</a>, SampleRate::<a href="#type-sample_rate">sample_rate()</a>) -&gt; ok</tt><br></p>
+</div><p>Sends multiple entities (events and/or states) to Riemann asynchronously. Delegates to <a href="katja_writer.html#send_entities_async-4"><code>katja_writer:send_entities_async/4</code></a>.</p>
+
+<h3 class="function"><a name="send_event-1">send_event/1</a></h3>
+<div class="spec">
+<p><tt>send_event(Data::<a href="#type-event">event()</a>) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Delegates to <a href="#send_event-2"><code>send_event/2</code></a>. <code>Pid</code> is set to <code>katja_writer</code>.</p>
+
+<h3 class="function"><a name="send_event-2">send_event/2</a></h3>
+<div class="spec">
+<p><tt>send_event(Pid::<a href="#type-process">process()</a>, Data::<a href="#type-event">event()</a>) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Delegates to <a href="#send_event-3"><code>send_event/3</code></a>. <code>Transport</code> is set to <code>config</code>.</p>
+
+<h3 class="function"><a name="send_event-3">send_event/3</a></h3>
+<div class="spec">
+<p><tt>send_event(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::<a href="#type-event">event()</a>) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Sends a single event to Riemann. Delegates to <a href="katja_writer.html#send_event-3"><code>katja_writer:send_event/3</code></a>.</p>
+
+<h3 class="function"><a name="send_event_async-1">send_event_async/1</a></h3>
+<div class="spec">
+<p><tt>send_event_async(Data::<a href="#type-event">event()</a>) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_event_async-2"><code>send_event_async/2</code></a>. <code>Pid</code> is set to <code>katja_writer</code>.</p>
+
+<h3 class="function"><a name="send_event_async-2">send_event_async/2</a></h3>
+<div class="spec">
+<p><tt>send_event_async(Pid::<a href="#type-process">process()</a>, Data::<a href="#type-event">event()</a>) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_event_async-3"><code>send_event_async/3</code></a>. <code>Transport</code> is set to <code>config</code>.</p>
+
+<h3 class="function"><a name="send_event_async-3">send_event_async/3</a></h3>
+<div class="spec">
+<p><tt>send_event_async(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::<a href="#type-event">event()</a>) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_event_async-4"><code>send_event_async/4</code></a>. <code>SampleRate</code> is set to <code>1.0</code>.</p>
+
+<h3 class="function"><a name="send_event_async-4">send_event_async/4</a></h3>
+<div class="spec">
+<p><tt>send_event_async(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::<a href="#type-event">event()</a>, SampleRate::<a href="#type-sample_rate">sample_rate()</a>) -&gt; ok</tt><br></p>
+</div><p>Sends a single event to Riemann asynchronously. Delegates to <a href="katja_writer.html#send_event_async-4"><code>katja_writer:send_event_async/4</code></a>.</p>
+
+<h3 class="function"><a name="send_events-1">send_events/1</a></h3>
+<div class="spec">
+<p><tt>send_events(Data::[<a href="#type-event">event()</a>]) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Delegates to <a href="#send_events-2"><code>send_events/2</code></a>. <code>Pid</code> is set to <code>katja_writer</code>.</p>
+
+<h3 class="function"><a name="send_events-2">send_events/2</a></h3>
+<div class="spec">
+<p><tt>send_events(Pid::<a href="#type-process">process()</a>, Data::[<a href="#type-event">event()</a>]) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Delegates to <a href="#send_events-3"><code>send_events/3</code></a>. <code>Transport</code> is set to <code>config</code>.</p>
+
+<h3 class="function"><a name="send_events-3">send_events/3</a></h3>
+<div class="spec">
+<p><tt>send_events(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::[<a href="#type-event">event()</a>]) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Sends multiple events to Riemann. Simple wrapper around <a href="#send_entities-3"><code>send_entities/3</code></a>.</p>
+
+<h3 class="function"><a name="send_events_async-1">send_events_async/1</a></h3>
+<div class="spec">
+<p><tt>send_events_async(Data::[<a href="#type-event">event()</a>]) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_events_async-2"><code>send_events_async/2</code></a>. <code>Pid</code> is set to <code>katja_writer</code>.</p>
+
+<h3 class="function"><a name="send_events_async-2">send_events_async/2</a></h3>
+<div class="spec">
+<p><tt>send_events_async(Pid::<a href="#type-process">process()</a>, Data::[<a href="#type-event">event()</a>]) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_events_async-3"><code>send_events_async/3</code></a>. <code>Transport</code> is set to <code>config</code>.</p>
+
+<h3 class="function"><a name="send_events_async-3">send_events_async/3</a></h3>
+<div class="spec">
+<p><tt>send_events_async(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::[<a href="#type-event">event()</a>]) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_events_async-4"><code>send_events_async/4</code></a>. <code>SampleRate</code> is set to <code>1.0</code>.</p>
+
+<h3 class="function"><a name="send_events_async-4">send_events_async/4</a></h3>
+<div class="spec">
+<p><tt>send_events_async(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::[<a href="#type-event">event()</a>], SampleRate::<a href="#type-sample_rate">sample_rate()</a>) -&gt; ok</tt><br></p>
+</div><p>Sends multiple events to Riemann asynchronously. Simple wrapper around <a href="#send_entities_async-4"><code>send_entities_async/4</code></a>.</p>
+
+<h3 class="function"><a name="send_state-1">send_state/1</a></h3>
+<div class="spec">
+<p><tt>send_state(Data::<a href="#type-state">state()</a>) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Delegates to <a href="#send_state-2"><code>send_state/2</code></a>. <code>Pid</code> is set to <code>katja_writer</code>.</p>
+
+<h3 class="function"><a name="send_state-2">send_state/2</a></h3>
+<div class="spec">
+<p><tt>send_state(Pid::<a href="#type-process">process()</a>, Data::<a href="#type-state">state()</a>) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Delegates to <a href="#send_state-3"><code>send_state/3</code></a>. <code>Transport</code> is set to <code>config</code>.</p>
+
+<h3 class="function"><a name="send_state-3">send_state/3</a></h3>
+<div class="spec">
+<p><tt>send_state(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::<a href="#type-state">state()</a>) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Sends a single state to Riemann. Delegates to <a href="katja_writer.html#send_state-3"><code>katja_writer:send_state/3</code></a>.</p>
+
+<h3 class="function"><a name="send_state_async-1">send_state_async/1</a></h3>
+<div class="spec">
+<p><tt>send_state_async(Data::<a href="#type-state">state()</a>) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_state_async-2"><code>send_state_async/2</code></a>. <code>Pid</code> is set to <code>katja_writer</code>.</p>
+
+<h3 class="function"><a name="send_state_async-2">send_state_async/2</a></h3>
+<div class="spec">
+<p><tt>send_state_async(Pid::<a href="#type-process">process()</a>, Data::<a href="#type-state">state()</a>) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_state_async-3"><code>send_state_async/3</code></a>. <code>Transport</code> is set to <code>config</code>.</p>
+
+<h3 class="function"><a name="send_state_async-3">send_state_async/3</a></h3>
+<div class="spec">
+<p><tt>send_state_async(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::<a href="#type-state">state()</a>) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_state_async-4"><code>send_state_async/4</code></a>. <code>SampleRate</code> is set to <code>1.0</code>.</p>
+
+<h3 class="function"><a name="send_state_async-4">send_state_async/4</a></h3>
+<div class="spec">
+<p><tt>send_state_async(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::<a href="#type-state">state()</a>, SampleRate::<a href="#type-sample_rate">sample_rate()</a>) -&gt; ok</tt><br></p>
+</div><p>Sends a single state to Riemann asynchronously. Delegates to <a href="katja_writer.html#send_state_async-4"><code>katja_writer:send_state_async/4</code></a>.</p>
+
+<h3 class="function"><a name="send_states-1">send_states/1</a></h3>
+<div class="spec">
+<p><tt>send_states(Data::[<a href="#type-state">state()</a>]) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Delegates to <a href="#send_states-2"><code>send_states/2</code></a>. <code>Pid</code> is set to <code>katja_writer</code>.</p>
+
+<h3 class="function"><a name="send_states-2">send_states/2</a></h3>
+<div class="spec">
+<p><tt>send_states(Pid::<a href="#type-process">process()</a>, Data::[<a href="#type-state">state()</a>]) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Delegates to <a href="#send_states-3"><code>send_states/3</code></a>. <code>Transport</code> is set to <code>config</code>.</p>
+
+<h3 class="function"><a name="send_states-3">send_states/3</a></h3>
+<div class="spec">
+<p><tt>send_states(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::[<a href="#type-state">state()</a>]) -&gt; ok | {error, term()}</tt><br></p>
+</div><p>Sends multiple states to Riemann. Simple wrapper around <a href="#send_entities-3"><code>send_entities/3</code></a>.</p>
+
+<h3 class="function"><a name="send_states_async-1">send_states_async/1</a></h3>
+<div class="spec">
+<p><tt>send_states_async(Data::[<a href="#type-state">state()</a>]) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_states_async-2"><code>send_states_async/2</code></a>. <code>Pid</code> is set to <code>katja_writer</code>.</p>
+
+<h3 class="function"><a name="send_states_async-2">send_states_async/2</a></h3>
+<div class="spec">
+<p><tt>send_states_async(Pid::<a href="#type-process">process()</a>, Data::[<a href="#type-state">state()</a>]) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_states_async-3"><code>send_states_async/3</code></a>. <code>Transport</code> is set to <code>config</code>.</p>
+
+<h3 class="function"><a name="send_states_async-3">send_states_async/3</a></h3>
+<div class="spec">
+<p><tt>send_states_async(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::[<a href="#type-state">state()</a>]) -&gt; ok</tt><br></p>
+</div><p>Delegates to <a href="#send_states_async-4"><code>send_states_async/4</code></a>. <code>SampleRate</code> is set to <code>1.0</code>.</p>
+
+<h3 class="function"><a name="send_states_async-4">send_states_async/4</a></h3>
+<div class="spec">
+<p><tt>send_states_async(Pid::<a href="#type-process">process()</a>, Transport::<a href="katja_connection.html#type-transport">katja_connection:transport()</a>, Data::[<a href="#type-state">state()</a>], SampleRate::<a href="#type-sample_rate">sample_rate()</a>) -&gt; ok</tt><br></p>
+</div><p>Sends multiple states to Riemann asynchronously. Simple wrapper around <a href="#send_entities_async-4"><code>send_entities_async/4</code></a>.</p>
+
+<h3 class="function"><a name="start-0">start/0</a></h3>
+<div class="spec">
+<p><tt>start() -&gt; ok</tt><br></p>
+</div><p>Starts the Katja application and all of its dependencies. This is really only meant for usage inside the console.</p>
+
+<h3 class="function"><a name="stop-0">stop/0</a></h3>
+<div class="spec">
+<p><tt>stop() -&gt; ok</tt><br></p>
+</div><p>Stops the Katja application and all of its dependencies. This is really only meant for usage inside the console.</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, Aug 17 2014, 17:58:10.</i></p>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module noesis_geometry</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module noesis_geometry</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>The <code>noesis_geometry</code> module provides functions (more or less) related to geometry.
+<p>Copyright © 2014-2015 Daniel Kempkens</p>
+
+<p><b>Version:</b> 0.3</p>
+<p><b>Authors:</b> Daniel Kempkens (<a href="mailto:daniel@kempkens.io"><tt>daniel@kempkens.io</tt></a>).</p>
+
+<h2><a name="description">Description</a></h2>The <code>noesis_geometry</code> module provides functions (more or less) related to geometry.
+<h2><a name="types">Data Types</a></h2>
+
+<h3 class="typedecl"><a name="type-bearing">bearing()</a></h3>
+<p><tt>bearing() = number()</tt></p>
+
+
+<h3 class="typedecl"><a name="type-bounds">bounds()</a></h3>
+<p><tt>bounds() = {NorthEast::<a href="#type-coordinates">coordinates()</a>, SouthWest::<a href="#type-coordinates">coordinates()</a>}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-coordinates">coordinates()</a></h3>
+<p><tt>coordinates() = {Longitude::<a href="#type-longitude">longitude()</a>, Latitude::<a href="#type-latitude">latitude()</a>}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-latitude">latitude()</a></h3>
+<p><tt>latitude() = number()</tt></p>
+
+
+<h3 class="typedecl"><a name="type-longitude">longitude()</a></h3>
+<p><tt>longitude() = number()</tt></p>
+
+
+<h3 class="typedecl"><a name="type-path">path()</a></h3>
+<p><tt>path() = [<a href="#type-coordinates">coordinates()</a>]</tt></p>
+
+
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#center-1">center/1</a></td><td>Calculates the center point of a <a href="#type-bounds"><code>bounds()</code></a> tuple.</td></tr>
+<tr><td valign="top"><a href="#contains_point-2">contains_point/2</a></td><td>Checks whether or not a given point is inside the supplied <a href="#type-bounds"><code>bounds()</code></a> tuple.</td></tr>
+<tr><td valign="top"><a href="#crosses_antimeridian-1">crosses_antimeridian/1</a></td><td>Returns whether or not the bounds intersect the antimeridian.</td></tr>
+<tr><td valign="top"><a href="#deg2rad-1">deg2rad/1</a></td><td>Converts degrees to radians.</td></tr>
+<tr><td valign="top"><a href="#distance-2">distance/2</a></td><td>Calculates the great-circle distance between two coordinates, that is the shortest distance between
+      two points on the surface of a sphere.</td></tr>
+<tr><td valign="top"><a href="#extend-2">extend/2</a></td><td>Extends the <a href="#type-bounds"><code>bounds()</code></a> tuple by the given point, if the bounds don't already contain the point.</td></tr>
+<tr><td valign="top"><a href="#lat-1">lat/1</a></td><td>Returns the latitude value of a <a href="#type-coordinates"><code>coordinates()</code></a> tuple.</td></tr>
+<tr><td valign="top"><a href="#lng-1">lng/1</a></td><td>Returns the longitude value of a <a href="#type-coordinates"><code>coordinates()</code></a> tuple.</td></tr>
+<tr><td valign="top"><a href="#normalize_bearing-1">normalize_bearing/1</a></td><td>Normalizes a bearing to the <code>[0, 360]</code> range.</td></tr>
+<tr><td valign="top"><a href="#normalize_lat-1">normalize_lat/1</a></td><td>Normalizes a latitude to the <code>[-90, 90]</code> range.</td></tr>
+<tr><td valign="top"><a href="#normalize_lng-1">normalize_lng/1</a></td><td>Normalizes a longitude to the <code>[-180, 180]</code> range.</td></tr>
+<tr><td valign="top"><a href="#north_east-1">north_east/1</a></td><td>Returns the NE value of a <a href="#type-bounds"><code>bounds()</code></a> tuple.</td></tr>
+<tr><td valign="top"><a href="#rad2deg-1">rad2deg/1</a></td><td>Converts radians to degrees.</td></tr>
+<tr><td valign="top"><a href="#rhumb_bearing_to-2">rhumb_bearing_to/2</a></td><td>Given a starting point and a destination point, this will calculate the bearing between the two.</td></tr>
+<tr><td valign="top"><a href="#rhumb_destination_point-3">rhumb_destination_point/3</a></td><td>Given a starting point, a bearing and a distance, this will calculate the destination point.</td></tr>
+<tr><td valign="top"><a href="#rhumb_distance-2">rhumb_distance/2</a></td><td>Given a starting point and a destination point, this will calculate the distance between the two.</td></tr>
+<tr><td valign="top"><a href="#south_west-1">south_west/1</a></td><td>Returns the SW value of a <a href="#type-bounds"><code>bounds()</code></a> tuple.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="center-1">center/1</a></h3>
+<div class="spec">
+<p><tt>center(Bounds::<a href="#type-bounds">bounds()</a>) -&gt; <a href="#type-coordinates">coordinates()</a></tt><br></p>
+</div><p>Calculates the center point of a <a href="#type-bounds"><code>bounds()</code></a> tuple.</p>
+
+<h3 class="function"><a name="contains_point-2">contains_point/2</a></h3>
+<div class="spec">
+<p><tt>contains_point(Bounds::<a href="#type-bounds">bounds()</a>, Point::<a href="#type-coordinates">coordinates()</a>) -&gt; boolean()</tt><br></p>
+</div><p>Checks whether or not a given point is inside the supplied <a href="#type-bounds"><code>bounds()</code></a> tuple.</p>
+
+<h3 class="function"><a name="crosses_antimeridian-1">crosses_antimeridian/1</a></h3>
+<div class="spec">
+<p><tt>crosses_antimeridian(Bounds::<a href="#type-bounds">bounds()</a>) -&gt; boolean()</tt><br></p>
+</div><p>Returns whether or not the bounds intersect the antimeridian.</p>
+
+<h3 class="function"><a name="deg2rad-1">deg2rad/1</a></h3>
+<div class="spec">
+<p><tt>deg2rad(Deg::number() | <a href="#type-coordinates">coordinates()</a>) -&gt; number() | <a href="#type-coordinates">coordinates()</a></tt><br></p>
+</div><p>Converts degrees to radians.</p>
+
+<h3 class="function"><a name="distance-2">distance/2</a></h3>
+<div class="spec">
+<p><tt>distance(StartCoordinates::<a href="#type-coordinates">coordinates()</a>, DestCoordinates::<a href="#type-coordinates">coordinates()</a>) -&gt; number()</tt><br></p>
+</div><p>Calculates the great-circle distance between two coordinates, that is the shortest distance between
+      two points on the surface of a sphere.<br>
+      <code>StartLng</code>, <code>StartLat</code>, <code>EndLng</code> and <code>EndLat</code> are all expected to be in degrees.</p>
+
+<h3 class="function"><a name="extend-2">extend/2</a></h3>
+<div class="spec">
+<p><tt>extend(Bounds::<a href="#type-bounds">bounds()</a>, Point::<a href="#type-coordinates">coordinates()</a>) -&gt; <a href="#type-bounds">bounds()</a></tt><br></p>
+</div><p>Extends the <a href="#type-bounds"><code>bounds()</code></a> tuple by the given point, if the bounds don't already contain the point.</p>
+
+<h3 class="function"><a name="lat-1">lat/1</a></h3>
+<div class="spec">
+<p><tt>lat(Coordinates::<a href="#type-coordinates">coordinates()</a>) -&gt; <a href="#type-latitude">latitude()</a></tt><br></p>
+</div><p>Returns the latitude value of a <a href="#type-coordinates"><code>coordinates()</code></a> tuple.</p>
+
+<h3 class="function"><a name="lng-1">lng/1</a></h3>
+<div class="spec">
+<p><tt>lng(Coordinates::<a href="#type-coordinates">coordinates()</a>) -&gt; <a href="#type-longitude">longitude()</a></tt><br></p>
+</div><p>Returns the longitude value of a <a href="#type-coordinates"><code>coordinates()</code></a> tuple.</p>
+
+<h3 class="function"><a name="normalize_bearing-1">normalize_bearing/1</a></h3>
+<div class="spec">
+<p><tt>normalize_bearing(Bearing::<a href="#type-bearing">bearing()</a>) -&gt; <a href="#type-bearing">bearing()</a></tt><br></p>
+</div><p>Normalizes a bearing to the <code>[0, 360]</code> range. Bearings above 360 or below 0 are wrapped.</p>
+
+<h3 class="function"><a name="normalize_lat-1">normalize_lat/1</a></h3>
+<div class="spec">
+<p><tt>normalize_lat(Lat::<a href="#type-latitude">latitude()</a>) -&gt; <a href="#type-latitude">latitude()</a></tt><br></p>
+</div><p>Normalizes a latitude to the <code>[-90, 90]</code> range. Latitudes above 90 or below -90 are capped, not wrapped.</p>
+
+<h3 class="function"><a name="normalize_lng-1">normalize_lng/1</a></h3>
+<div class="spec">
+<p><tt>normalize_lng(Lng::<a href="#type-longitude">longitude()</a>) -&gt; <a href="#type-longitude">longitude()</a></tt><br></p>
+</div><p>Normalizes a longitude to the <code>[-180, 180]</code> range. Longitudes above 180 or below -180 are wrapped.</p>
+
+<h3 class="function"><a name="north_east-1">north_east/1</a></h3>
+<div class="spec">
+<p><tt>north_east(Bounds::<a href="#type-bounds">bounds()</a>) -&gt; <a href="#type-coordinates">coordinates()</a></tt><br></p>
+</div><p>Returns the NE value of a <a href="#type-bounds"><code>bounds()</code></a> tuple.</p>
+
+<h3 class="function"><a name="rad2deg-1">rad2deg/1</a></h3>
+<div class="spec">
+<p><tt>rad2deg(Rad::number() | <a href="#type-coordinates">coordinates()</a>) -&gt; number() | <a href="#type-coordinates">coordinates()</a></tt><br></p>
+</div><p>Converts radians to degrees.</p>
+
+<h3 class="function"><a name="rhumb_bearing_to-2">rhumb_bearing_to/2</a></h3>
+<div class="spec">
+<p><tt>rhumb_bearing_to(StartPoint::<a href="#type-coordinates">coordinates()</a>, DestPoint::<a href="#type-coordinates">coordinates()</a>) -&gt; float()</tt><br></p>
+</div><p>Given a starting point and a destination point, this will calculate the bearing between the two.<br>
+      <code>StartPoint</code> and <code>DestPoint</code> are both expected to be in degrees.<br><br>
+      Partially based on <a href="http://www.movable-type.co.uk/scripts/latlong.html">Movable Type Scripts</a> by Chris Veness.</p>
+
+<h3 class="function"><a name="rhumb_destination_point-3">rhumb_destination_point/3</a></h3>
+<div class="spec">
+<p><tt>rhumb_destination_point(Point::<a href="#type-coordinates">coordinates()</a>, Bearing::<a href="#type-bearing">bearing()</a>, Distance::number()) -&gt; <a href="#type-coordinates">coordinates()</a></tt><br></p>
+</div><p>Given a starting point, a bearing and a distance, this will calculate the destination point.
+      If you maintain a constant bearing along a rhumb line, you will gradually spiral in towards one of the poles.<br>
+      <code>Point</code> and <code>Bearing</code> are both expected to be in degrees. <code>Distance</code> is expected to be in kilometers.<br><br>
+      Based on <a href="http://www.movable-type.co.uk/scripts/latlong.html">Movable Type Scripts</a> by Chris Veness.</p>
+
+<h3 class="function"><a name="rhumb_distance-2">rhumb_distance/2</a></h3>
+<div class="spec">
+<p><tt>rhumb_distance(StartCoordinates::<a href="#type-coordinates">coordinates()</a>, DestCoordinates::<a href="#type-coordinates">coordinates()</a>) -&gt; number()</tt><br></p>
+</div><p>Given a starting point and a destination point, this will calculate the distance between the two.<br>
+      <code>StartPoint</code> and <code>DestPoint</code> are both expected to be in degrees.<br><br>
+      Partially based on <a href="http://www.movable-type.co.uk/scripts/latlong.html">Movable Type Scripts</a> by Chris Veness.</p>
+
+<h3 class="function"><a name="south_west-1">south_west/1</a></h3>
+<div class="spec">
+<p><tt>south_west(Bounds::<a href="#type-bounds">bounds()</a>) -&gt; <a href="#type-coordinates">coordinates()</a></tt><br></p>
+</div><p>Returns the SW value of a <a href="#type-bounds"><code>bounds()</code></a> tuple.</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, Apr 1 2015, 20:52:48.</i></p>
+</body>
+</html>

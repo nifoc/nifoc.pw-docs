@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module katja_reader</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module katja_reader</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>The <code>katja_reader</code> module is responsible for querying Riemann.
+<p>Copyright © 2014-2016 Daniel Kempkens</p>
+
+<p><b>Version:</b> 0.9.2</p>
+<p><b>Behaviours:</b> <a href="gen_server.html"><tt>gen_server</tt></a>.</p>
+<p><b>Authors:</b> Daniel Kempkens (<a href="mailto:daniel@kempkens.io"><tt>daniel@kempkens.io</tt></a>).</p>
+
+<h2><a name="description">Description</a></h2>The <code>katja_reader</code> module is responsible for querying Riemann.<br>
+      Riemann currently does not provide real documentation on how to write queries, but there are a couple of resources
+      that can help you get started with writing them:
+      <ul>
+        <li><a href="https://github.com/aphyr/riemann/blob/master/src/riemann/Query.g" target="_blank">Grammar</a></li>
+        <li><a href="https://github.com/aphyr/riemann/blob/master/test/riemann/query_test.clj" target="_blank">Test Suite</a></li>
+      </ul>
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#query-2">query/2</a></td><td>Sends a query string to Riemann and returns a list of matching events.</td></tr>
+<tr><td valign="top"><a href="#query_async-2">query_async/2</a></td><td>Sends a query string to Riemann and returns the result asynchronously by sending a message to the caller.</td></tr>
+<tr><td valign="top"><a href="#query_event-2">query_event/2</a></td><td>Takes an event and transforms it into a query string.</td></tr>
+<tr><td valign="top"><a href="#query_event_async-2">query_event_async/2</a></td><td>Takes an event and transforms it into a query string.</td></tr>
+<tr><td valign="top"><a href="#start_link-0">start_link/0</a></td><td>Starts a reader server process.</td></tr>
+<tr><td valign="top"><a href="#start_link-1">start_link/1</a></td><td>Starts a reader server process and registers it as <code>katja_reader</code>.</td></tr>
+<tr><td valign="top"><a href="#stop-1">stop/1</a></td><td>Stops a reader server process.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="query-2">query/2</a></h3>
+<div class="spec">
+<p><tt>query(Pid::<a href="katja.html#type-process">katja:process()</a>, Query::iolist()) -&gt; {ok, [<a href="katja.html#type-event">katja:event()</a>]} | {error, term()}</tt><br></p>
+</div><p>Sends a query string to Riemann and returns a list of matching events.<br>
+      Example queries can be found in the
+      <a href="https://github.com/aphyr/riemann/blob/master/test/riemann/query_test.clj" target="_blank">Riemann test suite</a>.</p>
+
+<h3 class="function"><a name="query_async-2">query_async/2</a></h3>
+<div class="spec">
+<p><tt>query_async(Pid::<a href="katja.html#type-process">katja:process()</a>, Query::iolist()) -&gt; reference()</tt><br></p>
+</div><p>Sends a query string to Riemann and returns the result asynchronously by sending a message to the caller.<br>
+      See the <a href="#query-2"><code>query/2</code></a> documentation for more details.</p>
+
+<h3 class="function"><a name="query_event-2">query_event/2</a></h3>
+<div class="spec">
+<p><tt>query_event(Pid::<a href="katja.html#type-process">katja:process()</a>, Event::<a href="katja.html#type-event">katja:event()</a>) -&gt; {ok, [<a href="katja.html#type-event">katja:event()</a>]} | {error, term()}</tt><br></p>
+</div><p>Takes an event and transforms it into a query string. The generated query string is passed to <a href="#query-2"><code>query/2</code></a>.<br>
+      Querying <code>attributes</code> is currently not supported, because Riemann itself does not provide a way to query events
+      based on <code>attributes</code>.<br><br>
+      Converting <code>Event</code> to a query string happens inside the process calling this function.</p>
+
+<h3 class="function"><a name="query_event_async-2">query_event_async/2</a></h3>
+<div class="spec">
+<p><tt>query_event_async(Pid::<a href="katja.html#type-process">katja:process()</a>, Event::<a href="katja.html#type-event">katja:event()</a>) -&gt; reference()</tt><br></p>
+</div><p>Takes an event and transforms it into a query string. The generated query string is passed to <a href="#query_async-2"><code>query_async/2</code></a>.<br>
+      See the <a href="#query_event-2"><code>query_event/2</code></a> documentation for more details.</p>
+
+<h3 class="function"><a name="start_link-0">start_link/0</a></h3>
+<div class="spec">
+<p><tt>start_link() -&gt; {ok, pid()} | ignore | {error, term()}</tt><br></p>
+</div><p>Starts a reader server process.</p>
+
+<h3 class="function"><a name="start_link-1">start_link/1</a></h3>
+<div class="spec">
+<p><tt>start_link(Args::register | [{atom(), term()}]) -&gt; {ok, pid()} | ignore | {error, term()}</tt><br></p>
+</div><p>Starts a reader server process and registers it as <code>katja_reader</code>.</p>
+
+<h3 class="function"><a name="stop-1">stop/1</a></h3>
+<div class="spec">
+<p><tt>stop(Pid::<a href="katja.html#type-process">katja:process()</a>) -&gt; ok</tt><br></p>
+</div><p>Stops a reader server process.</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, Jul 9 2016, 16:54:15.</i></p>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module noesis_datetime</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module noesis_datetime</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>The <code>noesis_datetime</code> module provides functions for working with dates and time.
+<p>Copyright © 2014 Daniel Kempkens</p>
+
+<p><b>Version:</b> 0.1</p>
+<p><b>Authors:</b> Daniel Kempkens (<a href="mailto:daniel@kempkens.io"><tt>daniel@kempkens.io</tt></a>).</p>
+
+<h2><a name="description">Description</a></h2>The <code>noesis_datetime</code> module provides functions for working with dates and time.
+<h2><a name="types">Data Types</a></h2>
+
+<h3 class="typedecl"><a name="type-comparison_op">comparison_op()</a></h3>
+<p><tt>comparison_op() = lt | lte | eq | gt | gte</tt></p>
+
+
+<h3 class="typedecl"><a name="type-range">range()</a></h3>
+<p><tt>range() = <a href="#type-range_seconds">range_seconds()</a> | <a href="#type-range_minutes">range_minutes()</a> | <a href="#type-range_hours">range_hours()</a> | <a href="#type-range_days">range_days()</a> | <a href="#type-range_weeks">range_weeks()</a></tt></p>
+
+
+<h3 class="typedecl"><a name="type-range_days">range_days()</a></h3>
+<p><tt>range_days() = {non_neg_integer(), day} | {non_neg_integer(), days}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-range_hours">range_hours()</a></h3>
+<p><tt>range_hours() = {non_neg_integer(), hour} | {non_neg_integer(), hours}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-range_minutes">range_minutes()</a></h3>
+<p><tt>range_minutes() = {non_neg_integer(), minute} | {non_neg_integer(), minutes}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-range_seconds">range_seconds()</a></h3>
+<p><tt>range_seconds() = {non_neg_integer(), second} | {non_neg_integer(), seconds}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-range_weeks">range_weeks()</a></h3>
+<p><tt>range_weeks() = {non_neg_integer(), week} | {non_neg_integer(), weeks}</tt></p>
+
+
+<h3 class="typedecl"><a name="type-rfc1123">rfc1123()</a></h3>
+<p><tt>rfc1123() = &lt;&lt;_:232&gt;&gt;</tt></p>
+
+
+<h3 class="typedecl"><a name="type-timestamp">timestamp()</a></h3>
+<p><tt>timestamp() = non_neg_integer()</tt></p>
+
+
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#iso8601-0">iso8601/0</a></td><td>Returns the current date and time (UTC) according to ISO 8601.</td></tr>
+<tr><td valign="top"><a href="#iso8601-1">iso8601/1</a></td><td>Formats any <code>calendar:datetime()</code> (UTC) according to ISO 8601.</td></tr>
+<tr><td valign="top"><a href="#iso8601_to_datetime-1">iso8601_to_datetime/1</a></td><td>Parses an ISO 8601 binary string into <code>calendar:datetime()</code>.</td></tr>
+<tr><td valign="top"><a href="#iso8601_to_timestamp-1">iso8601_to_timestamp/1</a></td><td>Parses an ISO 8601 binary string into a Unix timestamp.</td></tr>
+<tr><td valign="top"><a href="#local_timestamp-0">local_timestamp/0</a></td><td>Returns the current Unix timestamp in the timezone of the system.</td></tr>
+<tr><td valign="top"><a href="#rfc1123-0">rfc1123/0</a></td><td>Returns the current date and time (UTC) according to RFC 1123.</td></tr>
+<tr><td valign="top"><a href="#rfc1123-1">rfc1123/1</a></td><td>Formats any <code>calendar:datetime()</code> (UTC) according to RFC 1123.</td></tr>
+<tr><td valign="top"><a href="#rfc1123_to_datetime-1">rfc1123_to_datetime/1</a></td><td>Parses a RFC 1123 binary string into <code>calendar:datetime()</code>.</td></tr>
+<tr><td valign="top"><a href="#rfc1123_to_timestamp-1">rfc1123_to_timestamp/1</a></td><td>Parses a RFC 1123 binary string into a Unix timestamp.</td></tr>
+<tr><td valign="top"><a href="#timestamp-0">timestamp/0</a></td><td>Returns the current Unix timestamp (UTC).</td></tr>
+<tr><td valign="top"><a href="#timestamp-1">timestamp/1</a></td><td>Calculates the Unix timestamp for any <code>calendar:datetime1970()</code>.</td></tr>
+<tr><td valign="top"><a href="#timestamp_distance-4">timestamp_distance/4</a></td><td>Takes two Unix timestamps and compares their distance to a given range.</td></tr>
+<tr><td valign="top"><a href="#timestamp_to_datetime-1">timestamp_to_datetime/1</a></td><td>Converts a Unix timestamp to <code>calendar:datetime()</code>.</td></tr>
+<tr><td valign="top"><a href="#timestamp_to_iso8601-1">timestamp_to_iso8601/1</a></td><td>Converts a Unix timestamp to an ISO 8601 formatted binary string.</td></tr>
+<tr><td valign="top"><a href="#timestamp_to_rfc1123-1">timestamp_to_rfc1123/1</a></td><td>Converts a Unix timestamp to a RFC 1123 formatted binary string.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="iso8601-0">iso8601/0</a></h3>
+<div class="spec">
+<p><tt>iso8601() -&gt; binary()</tt><br></p>
+</div><p>Returns the current date and time (UTC) according to ISO 8601.<br><br>
+      This function has only been tested under very specific circumstances.</p>
+
+<h3 class="function"><a name="iso8601-1">iso8601/1</a></h3>
+<div class="spec">
+<p><tt>iso8601(X1::<a href="calendar.html#type-datetime">calendar:datetime()</a>) -&gt; binary()</tt><br></p>
+</div><p>Formats any <code>calendar:datetime()</code> (UTC) according to ISO 8601.<br><br>
+      This function has only been tested under very specific circumstances.</p>
+
+<h3 class="function"><a name="iso8601_to_datetime-1">iso8601_to_datetime/1</a></h3>
+<div class="spec">
+<p><tt>iso8601_to_datetime(X1::binary()) -&gt; <a href="calendar.html#type-datetime">calendar:datetime()</a></tt><br></p>
+</div><p>Parses an ISO 8601 binary string into <code>calendar:datetime()</code>.<br>
+      Timezones are <strong>not</strong> handled at all.<br><br>
+      This function has only been tested under very specific circumstances.</p>
+
+<h3 class="function"><a name="iso8601_to_timestamp-1">iso8601_to_timestamp/1</a></h3>
+<div class="spec">
+<p><tt>iso8601_to_timestamp(ISO::binary()) -&gt; <a href="#type-timestamp">timestamp()</a></tt><br></p>
+</div><p>Parses an ISO 8601 binary string into a Unix timestamp.<br>
+      Timezones are <strong>not</strong> handled at all.<br><br>
+      This function has only been tested under very specific circumstances.</p>
+
+<h3 class="function"><a name="local_timestamp-0">local_timestamp/0</a></h3>
+<div class="spec">
+<p><tt>local_timestamp() -&gt; <a href="#type-timestamp">timestamp()</a></tt><br></p>
+</div><p>Returns the current Unix timestamp in the timezone of the system.</p>
+
+<h3 class="function"><a name="rfc1123-0">rfc1123/0</a></h3>
+<div class="spec">
+<p><tt>rfc1123() -&gt; <a href="#type-rfc1123">rfc1123()</a></tt><br></p>
+</div><p>Returns the current date and time (UTC) according to RFC 1123.<br><br>
+      This function has only been tested under very specific circumstances.</p>
+
+<h3 class="function"><a name="rfc1123-1">rfc1123/1</a></h3>
+<div class="spec">
+<p><tt>rfc1123(X1::<a href="calendar.html#type-datetime">calendar:datetime()</a>) -&gt; <a href="#type-rfc1123">rfc1123()</a></tt><br></p>
+</div><p>Formats any <code>calendar:datetime()</code> (UTC) according to RFC 1123.<br><br>
+      This function has only been tested under very specific circumstances.</p>
+
+<h3 class="function"><a name="rfc1123_to_datetime-1">rfc1123_to_datetime/1</a></h3>
+<div class="spec">
+<p><tt>rfc1123_to_datetime(X1::<a href="#type-rfc1123">rfc1123()</a>) -&gt; <a href="calendar.html#type-datetime">calendar:datetime()</a></tt><br></p>
+</div><p>Parses a RFC 1123 binary string into <code>calendar:datetime()</code>.<br><br>
+      This function has only been tested under very specific circumstances.</p>
+
+<h3 class="function"><a name="rfc1123_to_timestamp-1">rfc1123_to_timestamp/1</a></h3>
+<div class="spec">
+<p><tt>rfc1123_to_timestamp(RFC::<a href="#type-rfc1123">rfc1123()</a>) -&gt; <a href="#type-timestamp">timestamp()</a></tt><br></p>
+</div><p>Parses a RFC 1123 binary string into a Unix timestamp.<br><br>
+      This function has only been tested under very specific circumstances.</p>
+
+<h3 class="function"><a name="timestamp-0">timestamp/0</a></h3>
+<div class="spec">
+<p><tt>timestamp() -&gt; <a href="#type-timestamp">timestamp()</a></tt><br></p>
+</div><p>Returns the current Unix timestamp (UTC).</p>
+
+<h3 class="function"><a name="timestamp-1">timestamp/1</a></h3>
+<div class="spec">
+<p><tt>timestamp(DateTime::<a href="calendar.html#type-datetime1970">calendar:datetime1970()</a>) -&gt; <a href="#type-timestamp">timestamp()</a></tt><br></p>
+</div><p>Calculates the Unix timestamp for any <code>calendar:datetime1970()</code>.</p>
+
+<h3 class="function"><a name="timestamp_distance-4">timestamp_distance/4</a></h3>
+<div class="spec">
+<p><tt>timestamp_distance(Op::<a href="#type-comparison_op">comparison_op()</a>, A::<a href="#type-timestamp">timestamp()</a>, B::<a href="#type-timestamp">timestamp()</a>, Range::<a href="#type-range">range()</a>) -&gt; boolean()</tt><br></p>
+</div><p>Takes two Unix timestamps and compares their distance to a given range.<br><br>
+      <strong>Comparion operations</strong><br>
+      Less than: <code>lt</code><br>
+      Less than or equal to: <code>lte</code><br>
+      Equal: <code>eq</code><br>
+      Greater than: <code>gt</code><br>
+      Greater than or equal to: <code>gte</code><br><br>
+      <strong>Ranges</strong><br>
+      <code>{X, seconds}</code><br>
+      <code>{X, minutes}</code><br>
+      <code>{X, hours}</code><br>
+      <code>{X, days}</code><br>
+      <code>{X, weeks}</code></p>
+
+<h3 class="function"><a name="timestamp_to_datetime-1">timestamp_to_datetime/1</a></h3>
+<div class="spec">
+<p><tt>timestamp_to_datetime(Timestamp::<a href="#type-timestamp">timestamp()</a>) -&gt; <a href="calendar.html#type-datetime">calendar:datetime()</a></tt><br></p>
+</div><p>Converts a Unix timestamp to <code>calendar:datetime()</code>.</p>
+
+<h3 class="function"><a name="timestamp_to_iso8601-1">timestamp_to_iso8601/1</a></h3>
+<div class="spec">
+<p><tt>timestamp_to_iso8601(Timestamp::<a href="#type-timestamp">timestamp()</a>) -&gt; <a href="#type-rfc1123">rfc1123()</a></tt><br></p>
+</div><p>Converts a Unix timestamp to an ISO 8601 formatted binary string.</p>
+
+<h3 class="function"><a name="timestamp_to_rfc1123-1">timestamp_to_rfc1123/1</a></h3>
+<div class="spec">
+<p><tt>timestamp_to_rfc1123(Timestamp::<a href="#type-timestamp">timestamp()</a>) -&gt; <a href="#type-rfc1123">rfc1123()</a></tt><br></p>
+</div><p>Converts a Unix timestamp to a RFC 1123 formatted binary string.</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, Jul 26 2014, 14:53:20.</i></p>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module katja_vmstats_metrics</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module katja_vmstats_metrics</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>The <code>katja_vmstats_metrics</code> module implements all available metrics.
+<p>Copyright © 2014 Daniel Kempkens</p>
+
+<p><b>Version:</b> 0.2</p>
+<p><b>Authors:</b> Daniel Kempkens (<a href="mailto:daniel@kempkens.io"><tt>daniel@kempkens.io</tt></a>).</p>
+
+<h2><a name="description">Description</a></h2>The <code>katja_vmstats_metrics</code> module implements all available metrics.
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#all_message_queues-0">all_message_queues/0</a></td><td>Returns the (summed) size of all message queues at the local node.</td></tr>
+<tr><td valign="top"><a href="#context_switches-0">context_switches/0</a></td><td>Returns the total number of context switches since the system started.</td></tr>
+<tr><td valign="top"><a href="#error_logger_message_queue-0">error_logger_message_queue/0</a></td><td>Returns the size of the <code>error_logger</code> message queue at the local node.</td></tr>
+<tr><td valign="top"><a href="#ets_count-0">ets_count/0</a></td><td>Returns the number of ETS tables currently existing at the local node.</td></tr>
+<tr><td valign="top"><a href="#ets_limit-0">ets_limit/0</a></td><td>Returns the maximum number of ETS tables allowed.</td></tr>
+<tr><td valign="top"><a href="#ets_utilization-0">ets_utilization/0</a></td><td>Returns the ETS table utilization (number between 0 and 1) at the local node.</td></tr>
+<tr><td valign="top"><a href="#exact_reductions_last_call-0">exact_reductions_last_call/0</a></td><td>Returns the exact number of reductions performed since the last call to this function.</td></tr>
+<tr><td valign="top"><a href="#exact_reductions_total-0">exact_reductions_total/0</a></td><td>Returns the exact total number of reductions performed at he local node.</td></tr>
+<tr><td valign="top"><a href="#garbage_collection_runs-0">garbage_collection_runs/0</a></td><td>Returns the total number of garbage collector runs.</td></tr>
+<tr><td valign="top"><a href="#garbage_collection_words_reclaimed-0">garbage_collection_words_reclaimed/0</a></td><td>Returns the total number of words reclaimed by the garbage collector.</td></tr>
+<tr><td valign="top"><a href="#io_in-0">io_in/0</a></td><td>Returns the total number of bytes received through ports.</td></tr>
+<tr><td valign="top"><a href="#io_out-0">io_out/0</a></td><td>Returns the total number of bytes output to ports.</td></tr>
+<tr><td valign="top"><a href="#links-1">links/1</a></td><td>Returns the number of processes or ports to which the process has a link.</td></tr>
+<tr><td valign="top"><a href="#loaded_modules-0">loaded_modules/0</a></td><td>Returns the number of currently loaded modules at the local node.</td></tr>
+<tr><td valign="top"><a href="#memory_atoms-0">memory_atoms/0</a></td><td>The total amount of memory currently used for atoms.</td></tr>
+<tr><td valign="top"><a href="#memory_binaries-0">memory_binaries/0</a></td><td>The total amount of memory currently used for binaries.</td></tr>
+<tr><td valign="top"><a href="#memory_ets-0">memory_ets/0</a></td><td>The total amount of memory currently used for ETS tables.</td></tr>
+<tr><td valign="top"><a href="#memory_process-1">memory_process/1</a></td><td>Size of the process in bytes.</td></tr>
+<tr><td valign="top"><a href="#memory_processes-0">memory_processes/0</a></td><td>The total amount of memory currently used by the Erlang processes.</td></tr>
+<tr><td valign="top"><a href="#memory_system-0">memory_system/0</a></td><td>The total amount of memory currently allocated by the emulator that is not directly related to any Erlang process.</td></tr>
+<tr><td valign="top"><a href="#memory_total-0">memory_total/0</a></td><td>The total amount of memory currently allocated.</td></tr>
+<tr><td valign="top"><a href="#message_queue-1">message_queue/1</a></td><td>Returns the size of the message queue of the process identified by <code>Pid</code>.</td></tr>
+<tr><td valign="top"><a href="#monitors-1">monitors/1</a></td><td>Returns the number of monitors that are active for the process.</td></tr>
+<tr><td valign="top"><a href="#port_count-0">port_count/0</a></td><td>Returns the number of ports currently existing at the local node.</td></tr>
+<tr><td valign="top"><a href="#port_limit-0">port_limit/0</a></td><td>Returns the maximum number of simultaneously existing ports at the local node.</td></tr>
+<tr><td valign="top"><a href="#port_utilization-0">port_utilization/0</a></td><td>Returns the port utilization (number between 0 and 1) at the local node.</td></tr>
+<tr><td valign="top"><a href="#process_count-0">process_count/0</a></td><td>Returns the number of processes currently existing at the local node.</td></tr>
+<tr><td valign="top"><a href="#process_limit-0">process_limit/0</a></td><td>Returns the maximum number of simultaneously existing processes at the local node.</td></tr>
+<tr><td valign="top"><a href="#process_utilization-0">process_utilization/0</a></td><td>Returns the process utilization (number between 0 and 1) at the local node.</td></tr>
+<tr><td valign="top"><a href="#reductions_last_call-0">reductions_last_call/0</a></td><td>Returns the number of reductions (minus reductions performed in current time slices
+      of currently scheduled processes) performed since the last call to this function.</td></tr>
+<tr><td valign="top"><a href="#reductions_total-0">reductions_total/0</a></td><td>Returns the total number of reductions (minus reductions performed in current time slices
+      of currently scheduled processes) performed at he local node.</td></tr>
+<tr><td valign="top"><a href="#run_queue-0">run_queue/0</a></td><td>Returns the total length of the run queues, that is, the number of processes that are ready to run on all available run queues.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="all_message_queues-0">all_message_queues/0</a></h3>
+<div class="spec">
+<p><tt>all_message_queues() -&gt; non_neg_integer()</tt><br></p>
+</div><p>Returns the (summed) size of all message queues at the local node.</p>
+
+<h3 class="function"><a name="context_switches-0">context_switches/0</a></h3>
+<div class="spec">
+<p><tt>context_switches() -&gt; non_neg_integer()</tt><br></p>
+</div><p>Returns the total number of context switches since the system started.</p>
+
+<h3 class="function"><a name="error_logger_message_queue-0">error_logger_message_queue/0</a></h3>
+<div class="spec">
+<p><tt>error_logger_message_queue() -&gt; non_neg_integer()</tt><br></p>
+</div><p>Returns the size of the <code>error_logger</code> message queue at the local node.</p>
+
+<h3 class="function"><a name="ets_count-0">ets_count/0</a></h3>
+<div class="spec">
+<p><tt>ets_count() -&gt; pos_integer()</tt><br></p>
+</div><p>Returns the number of ETS tables currently existing at the local node.</p>
+
+<h3 class="function"><a name="ets_limit-0">ets_limit/0</a></h3>
+<div class="spec">
+<p><tt>ets_limit() -&gt; pos_integer()</tt><br></p>
+</div><p>Returns the maximum number of ETS tables allowed.<br>
+      On older R16 releases <code>ets_limit</code> falls back to reading the <code>ERL_MAX_ETS_TABLES</code> environment variable or defaults to 1400.</p>
+
+<h3 class="function"><a name="ets_utilization-0">ets_utilization/0</a></h3>
+<div class="spec">
+<p><tt>ets_utilization() -&gt; float()</tt><br></p>
+</div><p>Returns the ETS table utilization (number between 0 and 1) at the local node.</p>
+
+<h3 class="function"><a name="exact_reductions_last_call-0">exact_reductions_last_call/0</a></h3>
+<div class="spec">
+<p><tt>exact_reductions_last_call() -&gt; pos_integer()</tt><br></p>
+</div><p>Returns the exact number of reductions performed since the last call to this function.<br>
+      Using this method and <a href="#exact_reductions_total-0"><code>exact_reductions_total/0</code></a> at the same time will cause weird/wrong results.<br>
+      This method is more expensive than <a href="#reductions_last_call-0"><code>reductions_last_call/0</code></a>.</p>
+
+<h3 class="function"><a name="exact_reductions_total-0">exact_reductions_total/0</a></h3>
+<div class="spec">
+<p><tt>exact_reductions_total() -&gt; pos_integer()</tt><br></p>
+</div><p>Returns the exact total number of reductions performed at he local node.<br>
+      Using this method and <a href="#exact_reductions_last_call-0"><code>exact_reductions_last_call/0</code></a> at the same time will cause weird/wrong results.<br>
+      This method is more expensive than <a href="#reductions_total-0"><code>reductions_total/0</code></a>.</p>
+
+<h3 class="function"><a name="garbage_collection_runs-0">garbage_collection_runs/0</a></h3>
+<div class="spec">
+<p><tt>garbage_collection_runs() -&gt; non_neg_integer()</tt><br></p>
+</div><p>Returns the total number of garbage collector runs.</p>
+
+<h3 class="function"><a name="garbage_collection_words_reclaimed-0">garbage_collection_words_reclaimed/0</a></h3>
+<div class="spec">
+<p><tt>garbage_collection_words_reclaimed() -&gt; non_neg_integer()</tt><br></p>
+</div><p>Returns the total number of words reclaimed by the garbage collector.</p>
+
+<h3 class="function"><a name="io_in-0">io_in/0</a></h3>
+<div class="spec">
+<p><tt>io_in() -&gt; non_neg_integer()</tt><br></p>
+</div><p>Returns the total number of bytes received through ports.</p>
+
+<h3 class="function"><a name="io_out-0">io_out/0</a></h3>
+<div class="spec">
+<p><tt>io_out() -&gt; non_neg_integer()</tt><br></p>
+</div><p>Returns the total number of bytes output to ports.</p>
+
+<h3 class="function"><a name="links-1">links/1</a></h3>
+<div class="spec">
+<p><tt>links(Pid::atom() | pid()) -&gt; non_neg_integer()</tt><br></p>
+</div><p>Returns the number of processes or ports to which the process has a link.
+      If <code>Pid</code> is an <code>atom()</code>, it will assume that it's the name of a registered process.</p>
+
+<h3 class="function"><a name="loaded_modules-0">loaded_modules/0</a></h3>
+<div class="spec">
+<p><tt>loaded_modules() -&gt; pos_integer()</tt><br></p>
+</div><p>Returns the number of currently loaded modules at the local node.</p>
+
+<h3 class="function"><a name="memory_atoms-0">memory_atoms/0</a></h3>
+<div class="spec">
+<p><tt>memory_atoms() -&gt; pos_integer()</tt><br></p>
+</div><p>The total amount of memory currently used for atoms.</p>
+
+<h3 class="function"><a name="memory_binaries-0">memory_binaries/0</a></h3>
+<div class="spec">
+<p><tt>memory_binaries() -&gt; pos_integer()</tt><br></p>
+</div><p>The total amount of memory currently used for binaries.</p>
+
+<h3 class="function"><a name="memory_ets-0">memory_ets/0</a></h3>
+<div class="spec">
+<p><tt>memory_ets() -&gt; pos_integer()</tt><br></p>
+</div><p>The total amount of memory currently used for ETS tables.</p>
+
+<h3 class="function"><a name="memory_process-1">memory_process/1</a></h3>
+<div class="spec">
+<p><tt>memory_process(Pid::atom() | pid()) -&gt; non_neg_integer()</tt><br></p>
+</div><p>Size of the process in bytes. This includes call stack, heap and internal structures.
+      If <code>Pid</code> is an <code>atom()</code>, it will assume that it's the name of a registered process.</p>
+
+<h3 class="function"><a name="memory_processes-0">memory_processes/0</a></h3>
+<div class="spec">
+<p><tt>memory_processes() -&gt; pos_integer()</tt><br></p>
+</div><p>The total amount of memory currently used by the Erlang processes.</p>
+
+<h3 class="function"><a name="memory_system-0">memory_system/0</a></h3>
+<div class="spec">
+<p><tt>memory_system() -&gt; pos_integer()</tt><br></p>
+</div><p>The total amount of memory currently allocated by the emulator that is not directly related to any Erlang process.</p>
+
+<h3 class="function"><a name="memory_total-0">memory_total/0</a></h3>
+<div class="spec">
+<p><tt>memory_total() -&gt; pos_integer()</tt><br></p>
+</div><p>The total amount of memory currently allocated.</p>
+
+<h3 class="function"><a name="message_queue-1">message_queue/1</a></h3>
+<div class="spec">
+<p><tt>message_queue(Pid::atom() | pid()) -&gt; non_neg_integer()</tt><br></p>
+</div><p>Returns the size of the message queue of the process identified by <code>Pid</code>.
+      If <code>Pid</code> is an <code>atom()</code>, it will assume that it's the name of a registered process.</p>
+
+<h3 class="function"><a name="monitors-1">monitors/1</a></h3>
+<div class="spec">
+<p><tt>monitors(Pid::atom() | pid()) -&gt; non_neg_integer()</tt><br></p>
+</div><p>Returns the number of monitors that are active for the process.
+      If <code>Pid</code> is an <code>atom()</code>, it will assume that it's the name of a registered process.</p>
+
+<h3 class="function"><a name="port_count-0">port_count/0</a></h3>
+<div class="spec">
+<p><tt>port_count() -&gt; pos_integer()</tt><br></p>
+</div><p>Returns the number of ports currently existing at the local node.</p>
+
+<h3 class="function"><a name="port_limit-0">port_limit/0</a></h3>
+<div class="spec">
+<p><tt>port_limit() -&gt; pos_integer()</tt><br></p>
+</div><p>Returns the maximum number of simultaneously existing ports at the local node.</p>
+
+<h3 class="function"><a name="port_utilization-0">port_utilization/0</a></h3>
+<div class="spec">
+<p><tt>port_utilization() -&gt; float()</tt><br></p>
+</div><p>Returns the port utilization (number between 0 and 1) at the local node.</p>
+
+<h3 class="function"><a name="process_count-0">process_count/0</a></h3>
+<div class="spec">
+<p><tt>process_count() -&gt; pos_integer()</tt><br></p>
+</div><p>Returns the number of processes currently existing at the local node.</p>
+
+<h3 class="function"><a name="process_limit-0">process_limit/0</a></h3>
+<div class="spec">
+<p><tt>process_limit() -&gt; pos_integer()</tt><br></p>
+</div><p>Returns the maximum number of simultaneously existing processes at the local node.</p>
+
+<h3 class="function"><a name="process_utilization-0">process_utilization/0</a></h3>
+<div class="spec">
+<p><tt>process_utilization() -&gt; float()</tt><br></p>
+</div><p>Returns the process utilization (number between 0 and 1) at the local node.</p>
+
+<h3 class="function"><a name="reductions_last_call-0">reductions_last_call/0</a></h3>
+<div class="spec">
+<p><tt>reductions_last_call() -&gt; pos_integer()</tt><br></p>
+</div><p>Returns the number of reductions (minus reductions performed in current time slices
+      of currently scheduled processes) performed since the last call to this function.<br>
+      Using this method and <a href="#reductions_total-0"><code>reductions_total/0</code></a> at the same time will cause weird/wrong results.</p>
+
+<h3 class="function"><a name="reductions_total-0">reductions_total/0</a></h3>
+<div class="spec">
+<p><tt>reductions_total() -&gt; pos_integer()</tt><br></p>
+</div><p>Returns the total number of reductions (minus reductions performed in current time slices
+      of currently scheduled processes) performed at he local node.<br>
+      Using this method and <a href="#reductions_last_call-0"><code>reductions_last_call/0</code></a> at the same time will cause weird/wrong results.</p>
+
+<h3 class="function"><a name="run_queue-0">run_queue/0</a></h3>
+<div class="spec">
+<p><tt>run_queue() -&gt; non_neg_integer()</tt><br></p>
+</div><p>Returns the total length of the run queues, that is, the number of processes that are ready to run on all available run queues.</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, Jun 3 2014, 21:14:30.</i></p>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module katja_connection</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module katja_connection</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>Handles connections to Riemann.
+<p>Copyright © 2014 Daniel Kempkens</p>
+
+<p><b>Version:</b> 0.5</p>
+<p><b>Authors:</b> Daniel Kempkens (<a href="mailto:daniel@kempkens.io"><tt>daniel@kempkens.io</tt></a>).</p>
+
+<h2><a name="description">Description</a></h2>Handles connections to Riemann.
+<h2><a name="types">Data Types</a></h2>
+
+<h3 class="typedecl"><a name="type-state">state()</a></h3>
+<p><b>abstract datatype</b>: <tt>state()</tt></p>
+
+
+<h3 class="typedecl"><a name="type-transport">transport()</a></h3>
+<p><tt>transport() = detect | udp | tcp | config</tt></p>
+
+
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#connect-0">connect/0</a></td><td>Tries to connect to Riemann via UDP and TCP.</td></tr>
+<tr><td valign="top"><a href="#connect-2">connect/2</a></td><td>Tries to connect to Riemann via UDP and TCP using the specified <code>Host</code> and <code>Port</code>.</td></tr>
+<tr><td valign="top"><a href="#connect_tcp-0">connect_tcp/0</a></td><td>Tries to connect to Riemann via TCP only.</td></tr>
+<tr><td valign="top"><a href="#connect_tcp-2">connect_tcp/2</a></td><td>Tries to connect to Riemann via TCP using the specified <code>Host</code> and <code>Port</code>.</td></tr>
+<tr><td valign="top"><a href="#connect_udp-0">connect_udp/0</a></td><td>Tries to connect to Riemann via UDP only.</td></tr>
+<tr><td valign="top"><a href="#connect_udp-2">connect_udp/2</a></td><td>Tries to connect to Riemann via UDP using the specified <code>Host</code> and <code>Port</code>.</td></tr>
+<tr><td valign="top"><a href="#disconnect-1">disconnect/1</a></td><td>Disconnects all connected sockets from Riemann.</td></tr>
+<tr><td valign="top"><a href="#send_message-3">send_message/3</a></td><td>Sends a message to Riemann via UDP or TCP.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="connect-0">connect/0</a></h3>
+<div class="spec">
+<p><tt>connect() -&gt; {ok, <a href="#type-state">state()</a>} | {error, term()}</tt><br></p>
+</div><p>Tries to connect to Riemann via UDP and TCP. Delegates to <a href="#connect-2"><code>connect/2</code></a>.<br>
+      <code>Host</code> and <code>Port</code> are read from the application configuration.<br><br>
+      <strong>Defaults</strong><br>
+      <code>Host</code>: 127.0.0.1<br>
+      <code>Port</code>: 5555</p>
+
+<h3 class="function"><a name="connect-2">connect/2</a></h3>
+<div class="spec">
+<p><tt>connect(Host::string(), Port::pos_integer()) -&gt; {ok, <a href="#type-state">state()</a>} | {error, term()}</tt><br></p>
+</div><p>Tries to connect to Riemann via UDP and TCP using the specified <code>Host</code> and <code>Port</code>.<br>
+      A default message transport can be set using the application configuration. This only affects
+      entities (events and/or states) that are sent to Riemann, since querying always uses TCP.</p>
+
+<h3 class="function"><a name="connect_tcp-0">connect_tcp/0</a></h3>
+<div class="spec">
+<p><tt>connect_tcp() -&gt; {ok, <a href="#type-state">state()</a>} | {error, term()}</tt><br></p>
+</div><p>Tries to connect to Riemann via TCP only. Delegates to <a href="#connect_tcp-2"><code>connect_tcp/2</code></a>.<br>
+      <code>Host</code> and <code>Port</code> are read from the application configuration.<br><br>
+      <strong>Defaults</strong><br>
+      <code>Host</code>: 127.0.0.1<br>
+      <code>Port</code>: 5555</p>
+
+<h3 class="function"><a name="connect_tcp-2">connect_tcp/2</a></h3>
+<div class="spec">
+<p><tt>connect_tcp(Host::string(), Port::pos_integer()) -&gt; {ok, <a href="#type-state">state()</a>} | {error, term()}</tt><br></p>
+</div><p>Tries to connect to Riemann via TCP using the specified <code>Host</code> and <code>Port</code>.</p>
+
+<h3 class="function"><a name="connect_udp-0">connect_udp/0</a></h3>
+<div class="spec">
+<p><tt>connect_udp() -&gt; {ok, <a href="#type-state">state()</a>} | {error, term()}</tt><br></p>
+</div><p>Tries to connect to Riemann via UDP only. Delegates to <a href="#connect_udp-2"><code>connect_udp/2</code></a>.<br>
+      <code>Host</code> and <code>Port</code> are read from the application configuration.<br><br>
+      <strong>Defaults</strong><br>
+      <code>Host</code>: 127.0.0.1<br>
+      <code>Port</code>: 5555</p>
+
+<h3 class="function"><a name="connect_udp-2">connect_udp/2</a></h3>
+<div class="spec">
+<p><tt>connect_udp(Host::string(), Port::pos_integer()) -&gt; {ok, <a href="#type-state">state()</a>} | {error, term()}</tt><br></p>
+</div><p>Tries to connect to Riemann via UDP using the specified <code>Host</code> and <code>Port</code>.</p>
+
+<h3 class="function"><a name="disconnect-1">disconnect/1</a></h3>
+<div class="spec">
+<p><tt>disconnect(Connection_state::<a href="#type-state">state()</a>) -&gt; ok</tt><br></p>
+</div><p>Disconnects all connected sockets from Riemann.<br>
+      This method detects which sockets actually exist and only disconnects the ones that do.</p>
+
+<h3 class="function"><a name="send_message-3">send_message/3</a></h3>
+<div class="spec">
+<p><tt>send_message(Transport::<a href="#type-transport">transport()</a>, Msg::binary(), Connection_state::<a href="#type-state">state()</a>) -&gt; {{ok, <a href="#type-riemannpb_message">riemannpb_message()</a>}, <a href="#type-state">state()</a>} | {{error, term()}, <a href="#type-state">state()</a>}</tt><br></p>
+</div><p>Sends a message to Riemann via UDP or TCP.<br><br>
+      <code>Transport</code> can be one of the following values:<br>
+      <code>config</code>: Uses the <code>transport</code> configuration option<br>
+      <code>detect</code>: Uses the UDP transport for messages up to 16Kb in size and TCP for everything larger than that<br>
+      <code>udp</code>: Send the message via UDP<br>
+      <code>tcp</code>: Sends the message via TCP</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, Jul 20 2014, 16:50:28.</i></p>
+</body>
+</html>
